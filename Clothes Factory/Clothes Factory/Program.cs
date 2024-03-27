@@ -18,12 +18,6 @@ namespace Clothes_Factory
              Application.EnableVisualStyles();
              Application.SetCompatibleTextRenderingDefault(false);
              Application.Run(new Form1());
-            /*Client entrepreneur = new Client(new ElegantClothesFactory());
-            entrepreneur.DescribeYourClothes();
-            Console.WriteLine($"Entrepreneur: {entrepreneur.DescribeYourClothes()} \n");
-
-            Client student = new Client(new CasualClothesFactory());
-            Console.WriteLine($"Student: {student.DescribeYourClothes()}");*/
 
         }
     }

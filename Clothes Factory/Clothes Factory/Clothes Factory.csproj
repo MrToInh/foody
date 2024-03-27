@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Abstract products\Shirt.cs" />
     <Compile Include="Abstract products\Trousers.cs" />
-    <Compile Include="Client.cs" />
     <Compile Include="ClothesFactory.cs" />
     <Compile Include="Factories\CasualClothesFactory.cs" />
     <Compile Include="Factories\ElegantClothesFactory.cs" />
@@ -90,8 +89,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Image\Jean.png" />
-    <Content Include="Image\polo.png" />
+    <Content Include="Image\ao1.png" />
+    <Content Include="Image\ao2.png" />
+    <Content Include="Image\quan1.png" />
+    <Content Include="Image\quan2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
