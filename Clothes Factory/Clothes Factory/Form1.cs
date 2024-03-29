@@ -1,4 +1,5 @@
-﻿using Clothes_Factory.Abstract_products;
+﻿using Clothes_Factory;
+using Clothes_Factory.Abstract_products;
 using Clothes_Factory.Factories;
 using Clothes_Factory.Products;
 using System;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clothes_Factory
 {
@@ -21,64 +23,63 @@ namespace Clothes_Factory
             InitializeComponent();
         }
 
+        private Shirt shirt;
+        private Trousers trousers;
+
         private void Form1_Load(object sender, EventArgs e)
         {
+
         }
-        private void showimage(string imagePath,PictureBox pictureBox)
+        private void showimage(string imagePath, PictureBox pictureBox)
         {
             try
             {
-                // Kiểm tra xem đường dẫn hình ảnh có hợp lệ không
                 if (System.IO.File.Exists(imagePath))
                 {
-                    // Tạo đối tượng hình ảnh từ đường dẫn
                     Image image = Image.FromFile(imagePath);
 
-                    // Hiển thị hình ảnh lên PictureBox
                     pictureBox.Image = image;
                     pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
                 }
                 else
                 {
-                    // Nếu đường dẫn không hợp lệ, xóa hình ảnh khỏi PictureBox
                     pictureBox.Image = null;
                 }
             }
             catch (Exception ex)
             {
-                // Xử lý ngoại lệ nếu có
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
         private void button1_Click(object sender, EventArgs e)
         {
+
+            int selectedIndex = comboBox1.SelectedIndex;
+            showimage("C:\\Users\\Admin\\Documents\\GitHub\\foody\\Clothes Factory\\Clothes Factory\\Image\\ao" + (selectedIndex + 1) + ".png", pictureBox1);
+            showimage("C:\\Users\\Admin\\Documents\\GitHub\\foody\\Clothes Factory\\Clothes Factory\\Image\\quan" + (selectedIndex + 1) + ".png", pictureBox2);
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
             int selectedIndex = comboBox1.SelectedIndex;
             ClothesFactory clothesFactory;
-            try
-            {
-                switch (selectedIndex)
-                {
-                    case 0:
-                        clothesFactory = new ElegantClothesFactory();
-                        break;
-                    case 1:
-                        clothesFactory = new CasualClothesFactory();
-                        break;
-                    default:
-                        MessageBox.Show("Lựa chọn không hợp lệ. Vui lòng chọn lại.");
-                        return;
-                }
 
-                Shirt shirt = clothesFactory.CreateShirt();
-                Trousers trousers = clothesFactory.CreateTrousers();
-
-                showimage("C:\\Users\\ngocm\\source\\repos\\Clothes Factory\\Clothes Factory\\Image\\ao" + (selectedIndex + 1) + ".png", pictureBox1);
-                showimage("C:\\Users\\ngocm\\source\\repos\\Clothes Factory\\Clothes Factory\\Image\\quan" + (selectedIndex + 1) + ".png", pictureBox2);
-            }
-            catch (Exception ex)
+            switch (selectedIndex)
             {
-                MessageBox.Show($"Đã xảy ra lỗi: {ex.Message}");
+                case 0:
+                    clothesFactory = new ElegantClothesFactory();
+                    break;
+                case 1:
+                    clothesFactory = new CasualClothesFactory();
+                    break;
+                default:
+                    return;
             }
+
+            shirt = clothesFactory.CreateShirt();
+            trousers = clothesFactory.CreateTrousers();
+
         }
     }
-    }
+}
