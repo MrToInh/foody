@@ -6,5 +6,9 @@ namespace Clothes_Factory.Products
 {
     class Jeans : Trousers
     {
+        public Jeans()
+        {
+            Image image = Image.FromFile("../../../Images/jeans.jpg");
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace Clothes_Factory.Products
 {
     class DressShirt : Shirt
     { 
+        
     }
 }

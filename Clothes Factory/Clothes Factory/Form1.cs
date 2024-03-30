@@ -24,32 +24,7 @@ namespace Clothes_Factory
         private void Form1_Load(object sender, EventArgs e)
         {
         }
-        private void showimage(string imagePath,PictureBox pictureBox)
-        {
-            try
-            {
-                // Kiểm tra xem đường dẫn hình ảnh có hợp lệ không
-                if (System.IO.File.Exists(imagePath))
-                {
-                    // Tạo đối tượng hình ảnh từ đường dẫn
-                    Image image = Image.FromFile(imagePath);
-
-                    // Hiển thị hình ảnh lên PictureBox
-                    pictureBox.Image = image;
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                }
-                else
-                {
-                    // Nếu đường dẫn không hợp lệ, xóa hình ảnh khỏi PictureBox
-                    pictureBox.Image = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Xử lý ngoại lệ nếu có
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
+        
         private void button1_Click(object sender, EventArgs e)
         {
             int selectedIndex = comboBox1.SelectedIndex;
