@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
--- Host: localhost    Database: foody
+-- Host: 127.0.0.1    Database: foody
 -- ------------------------------------------------------
--- Server version	8.0.36
+-- Server version	8.3.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,29 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `restaurant`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `restaurant`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `restaurant` (
-  `id` int NOT NULL,
-  `restaurannt_name` varchar(45) NOT NULL,
-  `address_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `address_id` (`address_id`),
-  CONSTRAINT `restaurant_ibfk_1` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `restaurant`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `restaurant` WRITE;
-/*!40000 ALTER TABLE `restaurant` DISABLE KEYS */;
-/*!40000 ALTER TABLE `restaurant` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'tinh','123@gmail.com','$2a$08$4oKu5d83oYv8oXP5RLHhLOcui0BStu.XHjNxW3NkFMQg8rNz5FdRS','2024-03-31 06:32:42','2024-03-31 06:32:42'),(2,'dang','234@gmail.com','$2a$08$AuLG.nHKn8.PDHYjJkelSelC/zFpwZr0jJ2d4ZXeYsYYEFysdvgVm','2024-03-31 06:34:20','2024-03-31 06:34:20'),(3,'dang1','122222@gmail.com','$2a$08$.YxIAA6AGyy2NCjrU6fJieeXC9i7MER5nt60P7gmNUf/J5JYI7xPG','2024-03-31 06:40:04','2024-03-31 06:40:04'),(4,'tinh22','1222@gmail.com','$2a$08$0Vv6ulI5ZFVcvGIL1twKSuHXeRrp30xCCQ2IzXfZCp0hJ4GyqZp.G','2024-03-31 06:41:14','2024-03-31 06:41:14');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-21 23:45:00
+-- Dump completed on 2024-03-31 13:44:03

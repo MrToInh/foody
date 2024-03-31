@@ -1,3 +1,3 @@
-module.exports={
-    secret:"thanhtinh-secret-key"
+module.exports = {
+  secret: "bezkoder-secret-key"
 };
