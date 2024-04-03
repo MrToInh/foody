@@ -4,13 +4,13 @@ module.exports=(sequelize,Sequelize) => {
             type:Sequelize.INTEGER,
             primaryKey:true
         },
-        customer_id:{
+        user_id:{
             type:Sequelize.INTEGER
         },
         restaurant_id:{
             type:Sequelize.INTEGER
         },
-        customer_address_id:{
+        user_address_id:{
             type:Sequelize.INTEGER
         },
         order_status_id:{
@@ -31,10 +31,10 @@ module.exports=(sequelize,Sequelize) => {
         request_delivery_date:{
             type:Sequelize.DATE
         },
-        customer_driver_rating:{
+        user_driver_rating:{
             type:Sequelize.INTEGER
         },
-        customer_restaurant_rating:{
+        user_restaurant_rating:{
             type:Sequelize.INTEGER
         },
     });

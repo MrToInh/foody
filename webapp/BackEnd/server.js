@@ -47,7 +47,7 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-
+require("./app/routes/menu_item.router")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
@@ -62,7 +62,7 @@ function initial() {
 
   Role.create({
     id: 2,
-    name: "moderator",
+    name: "owner",
   });
 
   Role.create({

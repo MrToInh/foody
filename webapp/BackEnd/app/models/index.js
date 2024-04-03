@@ -25,7 +25,6 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.address = require("../models/address.model.js")(sequelize, Sequelize);
-db.customer = require("../models/customer.model.js")(sequelize, Sequelize);
 db.delivery_driver = require("../models/delivery_driver.model.js")(sequelize, Sequelize);
 db.order_status = require("../models/order_status.model.js")(sequelize, Sequelize);
 db.restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
@@ -40,11 +39,11 @@ db.user.belongsToMany(db.role, {
   through: "user_roles"
 });
 //cus/address
-db.address.belongsToMany(db.customer, {
-  through: "customer_address"
+db.address.belongsToMany(db.user, {
+  through: "user_address"
 });
-db.customer.belongsToMany(db.address, {
-  through: "customer_address"
+db.user.belongsToMany(db.address, {
+  through: "user_address"
 });
 //bill/menu_item
 db.menu_item.belongsToMany(db.bill, {
@@ -54,12 +53,12 @@ db.bill.belongsToMany(db.menu_item, {
   through: "order_menu_item"
 });
 //cus/bill
-db.bill.belongsTo(db.customer, {
-  foreignKey: 'customer_id',
-  as:'customer'
+db.bill.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  as:'user'
 });
-db.customer.hasMany(db.bill, {
-  foreignKey: 'customer_id',
+db.user.hasMany(db.bill, {
+  foreignKey: 'user_id',
   as:'bills'
 });
 //rest/bill
@@ -98,7 +97,15 @@ db.address.hasMany(db.restaurant, {
   foreignKey: 'address_id',
   as:'restaurants'
 });
-
-db.ROLES = ["user", "admin", "moderator"];
+//item/rest
+db.restaurant.hasMany(db.menu_item, {
+  foreignKey: 'restaurant_id',
+  as:'menu_item'
+});
+db.menu_item.belongsTo(db.restaurant, {
+  foreignKey: 'restaurant_id',
+  as:'restaurants'
+});
+db.ROLES = ["user", "admin", "owner"];
 
 module.exports = db;

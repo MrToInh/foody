@@ -25,77 +25,61 @@ verifyToken = (req, res, next) => {
              });
 };
 
-isAdmin = async (req, res, next) => {
+isAdmin = async (req, res) => {
   try {
     const user = await User.findByPk(req.userId);
     const roles = await user.getRoles();
 
     for (let i = 0; i < roles.length; i++) {
       if (roles[i].name === "admin") {
-        return next();
+        return true;
       }
     }
 
-    return res.status(403).send({
-      message: "Require Admin Role!",
-    });
+    return false;
   } catch (error) {
-    return res.status(500).send({
-      message: "Unable to validate User role!",
-    });
+    throw new Error("Unable to validate User role!");
   }
 };
 
-isModerator = async (req, res, next) => {
+isOwner = async (req, res) => {
   try {
     const user = await User.findByPk(req.userId);
     const roles = await user.getRoles();
 
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "moderator") {
-        return next();
+      if (roles[i].name === "owner") {
+        return true;
       }
     }
-
-    return res.status(403).send({
-      message: "Require Moderator Role!",
-    });
+    return false;
   } catch (error) {
-    return res.status(500).send({
-      message: "Unable to validate Moderator role!",
-    });
+    throw new Error("Unable to validate owner role!");
   }
 };
 
-isModeratorOrAdmin = async (req, res, next) => {
+isOwnerOrAdmin = async (req, res) => {
   try {
     const user = await User.findByPk(req.userId);
     const roles = await user.getRoles();
 
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "moderator") {
-        return next();
-      }
-
-      if (roles[i].name === "admin") {
-        return next();
+      if (roles[i].name === "owner" || roles[i].name === "admin") {
+        return true;
       }
     }
 
-    return res.status(403).send({
-      message: "Require Moderator or Admin Role!",
-    });
+    return false;
   } catch (error) {
-    return res.status(500).send({
-      message: "Unable to validate Moderator or Admin role!",
-    });
+    throw new Error("Unable to validate owner or Admin role!");
   }
 };
+
 
 const authJwt = {
   verifyToken,
   isAdmin,
-  isModerator,
-  isModeratorOrAdmin,
+  isOwner,
+  isOwnerOrAdmin,
 };
 module.exports = authJwt;
