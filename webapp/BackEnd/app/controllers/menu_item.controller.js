@@ -7,7 +7,6 @@ const Op = db.Sequelize.Op;
 
 exports.additem = async (req, res) => {
     try {
-        // Kiểm tra token xác thực
         const token = req.session.token;
         if (!token) {
             return res.status(403).send({
@@ -47,10 +46,13 @@ exports.additem = async (req, res) => {
                 
                 
                 const existingItem = await MenuItem.findOne({
-                    restaurant_id: req.body.restaurant_id,
-                    item_name: req.body.item_name
+                    where: {
+                        restaurant_id: req.body.restaurant_id,
+                        item_name: req.body.item_name
+                    }
                 });
-
+                
+                
                 if (existingItem) {
                     return res.status(400).send({
                         message: "Item already exists for this restaurant."

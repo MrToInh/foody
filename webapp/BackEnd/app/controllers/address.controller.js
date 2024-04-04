@@ -2,7 +2,7 @@ const db = require("../models");
 const Address = db.address;
 const Op = db.Op;
 
-// Create and Save a new MenuItem
+
 exports.create = (req, res) => {
     if(!res.body.title){
         res.status(400).send({

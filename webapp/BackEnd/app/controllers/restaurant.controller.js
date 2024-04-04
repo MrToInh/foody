@@ -2,7 +2,6 @@ const db = require("../models");
 const Restaurant = db.restaurant;
 const Op = db.Op;
 
-// Create and Save a new Restaurant
 exports.create = (req, res) => {
     if(!req.body.restaurant_name){
         res.status(400).send({
