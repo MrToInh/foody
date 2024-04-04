@@ -1,9 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const MenuItem = sequelize.define("menu_item", {
-        // id: {
-        //     type: Sequelize.INTEGER,
-        //     primaryKey: true
-        // },
+        
         restaurant_id: {
             type: Sequelize.INTEGER
         },
