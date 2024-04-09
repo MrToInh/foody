@@ -4,6 +4,9 @@ module.exports = (sequelize, Sequelize) => {
         restauant_name: {
             type: Sequelize.STRING
         },
+        user_id: {
+            type: Sequelize.INTEGER
+        },
         address_id: {
             type: Sequelize.INTEGER
         },
@@ -11,5 +14,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
     });
-    return Restaurant;
+    return Restaurant;  
 };

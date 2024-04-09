@@ -106,6 +106,14 @@ db.menu_item.belongsTo(db.restaurant, {
   foreignKey: 'restaurant_id',
   as:'restaurants'
 });
+db.user.hasMany(db.restaurant, {
+  foreignKey: 'user_id',
+  as:'restaurants'
+});
+db.restaurant.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  as:'user'
+});
 db.ROLES = ["user", "admin", "owner"];
 
 module.exports = db;
