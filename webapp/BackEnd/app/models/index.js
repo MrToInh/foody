@@ -30,6 +30,7 @@ db.order_status = require("../models/order_status.model.js")(sequelize, Sequeliz
 db.restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
 db.bill = require("../models/bill.model.js")(sequelize, Sequelize);
 db.menu_item = require("../models/menu_item.model.js")(sequelize, Sequelize);
+db.otp = require("../models/otp.model.js")(sequelize, Sequelize);
 
 //user/role
 db.role.belongsToMany(db.user, {
@@ -114,6 +115,8 @@ db.restaurant.belongsTo(db.user, {
   foreignKey: 'user_id',
   as:'user'
 });
+db.user.hasMany(db.otp, { foreignKey: 'userId' }); // Mỗi User có nhiều OTP
+db.otp.belongsTo(db.user, { foreignKey: 'userId' });
 db.ROLES = ["user", "admin", "owner"];
 
 module.exports = db;
