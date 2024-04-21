@@ -51,6 +51,7 @@ require("./app/routes/menu_item.router")(app);
 require("./app/routes/restaurant.router")(app);
 require("./app/routes/address.router")(app);
 require("./app/routes/otp.routes")(app);
+require("./app/routes/order.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

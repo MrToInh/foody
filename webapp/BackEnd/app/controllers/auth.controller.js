@@ -111,3 +111,41 @@ exports.signout = async (req, res) => {
     this.next(err);
   }
 };
+
+exports.editProfile = async (req, res) => {
+  try {
+    const token = req.session.token;
+    if (!token) {
+      return res.status(403).send({
+        message: "Unauthorized access! Please login first."
+      });
+    }
+
+    jwt.verify(token, config.secret, async (err, decoded) => {
+      if (err) {
+        return res.status(401).send({
+          message: "Invalid token!"
+        });
+      } else {
+        const userId = decoded.id;
+        const user = await User.findByPk(userId);
+        if (!user) {
+          return res.status(404).send({
+            message: "User not found."
+          });
+        }
+
+        await user.update({
+          password: bcrypt.hashSync(req.body.password, 8),
+          phone_number: req.body.phone_number
+        });
+
+        return res.send({ message: "Profile updated successfully!" });
+      }
+    });
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message || "Some error occurred while updating the profile."
+    });
+  }
+};

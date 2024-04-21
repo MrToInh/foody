@@ -206,7 +206,6 @@ exports.getAllItems = async (req, res) => {
         });
     }
 }
-
 exports.getItemById = async (req, res) => {
     try {
         const menuItem = await MenuItem.findByPk(req.body.id);
@@ -222,3 +221,4 @@ exports.getItemById = async (req, res) => {
         });
     }
 }
+

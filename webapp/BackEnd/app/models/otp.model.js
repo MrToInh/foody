@@ -7,7 +7,7 @@ module.exports=(sequelize,Sequelize)=>{
             type:Sequelize.INTEGER
         },
         expiration: {
-            type: Sequelize.DATE, // Thời gian đầy đủ bao gồm cả mili giây
+            type: Sequelize.DATE, 
         }
           
     });

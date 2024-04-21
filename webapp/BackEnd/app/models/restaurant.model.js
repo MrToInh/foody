@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
-    const Restaurant = sequelize.define("restaurant", {
+    const Restaurant = sequelize.define("restaurants", {
      
-        restauant_name: {
+        restaurant_name: {
             type: Sequelize.STRING
         },
         user_id: {
@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
         address_id: {
             type: Sequelize.INTEGER
         },
-        restauant_kind: {
+        restaurant_kind: {
             type: Sequelize.STRING
         },
     });

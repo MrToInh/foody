@@ -1,9 +1,6 @@
 module.exports=(sequelize,Sequelize) => {
     const Bill=sequelize.define("bill",{
-        id:{
-            type:Sequelize.INTEGER,
-            primaryKey:true
-        },
+        
         user_id:{
             type:Sequelize.INTEGER
         },

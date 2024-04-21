@@ -9,7 +9,7 @@ module.exports = function(app) {
     );
     next();
   });
-
+  app.put("/api/auth/editProfile", controller.editProfile);
   app.post(
     "/api/auth/signup",
     [

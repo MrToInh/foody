@@ -27,7 +27,7 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.address = require("../models/address.model.js")(sequelize, Sequelize);
 db.delivery_driver = require("../models/delivery_driver.model.js")(sequelize, Sequelize);
 db.order_status = require("../models/order_status.model.js")(sequelize, Sequelize);
-db.restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
+db.restaurants = require("../models/restaurant.model.js")(sequelize, Sequelize);
 db.bill = require("../models/bill.model.js")(sequelize, Sequelize);
 db.menu_item = require("../models/menu_item.model.js")(sequelize, Sequelize);
 db.otp = require("../models/otp.model.js")(sequelize, Sequelize);
@@ -48,10 +48,10 @@ db.user.belongsToMany(db.address, {
 });
 //bill/menu_item
 db.menu_item.belongsToMany(db.bill, {
-  through: "order_menu_item"
+  through: "OrderDetails"
 });
 db.bill.belongsToMany(db.menu_item, {
-  through: "order_menu_item"
+  through: "OrderDetails"
 });
 //cus/bill
 db.bill.belongsTo(db.user, {
@@ -63,11 +63,11 @@ db.user.hasMany(db.bill, {
   as:'bills'
 });
 //rest/bill
-db.bill.belongsTo(db.restaurant, {
+db.bill.belongsTo(db.restaurants, {
   foreignKey: 'restaurant_id',
   as:'restaurant'
 });
-db.restaurant.hasMany(db.bill, {
+db.restaurants.hasMany(db.bill, {
   foreignKey: 'restaurant_id',
   as:'bills'
 });
@@ -90,28 +90,28 @@ db.order_status.hasMany(db.bill, {
   as:'bills'
 });
 //rest/address
-db.restaurant.belongsTo(db.address, {
+db.restaurants.belongsTo(db.address, {
   foreignKey: 'address_id',
   as:'address'
 });
-db.address.hasMany(db.restaurant, {
+db.address.hasMany(db.restaurants, {
   foreignKey: 'address_id',
   as:'restaurants'
 });
 //item/rest
-db.restaurant.hasMany(db.menu_item, {
+db.restaurants.hasMany(db.menu_item, {
   foreignKey: 'restaurant_id',
   as:'menu_item'
 });
-db.menu_item.belongsTo(db.restaurant, {
+db.menu_item.belongsTo(db.restaurants, {
   foreignKey: 'restaurant_id',
   as:'restaurants'
 });
-db.user.hasMany(db.restaurant, {
+db.user.hasMany(db.restaurants, {
   foreignKey: 'user_id',
   as:'restaurants'
 });
-db.restaurant.belongsTo(db.user, {
+db.restaurants.belongsTo(db.user, {
   foreignKey: 'user_id',
   as:'user'
 });

@@ -9,6 +9,17 @@ const Op = db.Sequelize.Op;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const userCache = require("../cache/userCache");
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user:'nguyenthanhtinh667@gmail.com',
+    pass:'ffinnsztpuaiwtfu'
+  },
+  tls: {
+    acceptUnauthorized: false
+  }
+});
 // Logic gửi OTP
 exports.sendOTP = async (req, res) => {
   try {
@@ -18,13 +29,56 @@ exports.sendOTP = async (req, res) => {
 
     // Lưu OTP vào database với thời gian hết hạn
     await OTP.create({ email, otp, expiration: otpExpiration });
+    const mailOptions = {
+      from: process.env.SMTP_MAIL,  // Replace with your sender's email address
+      to: email,                    // Replace with recipient's email address
+      subject: "Your OTP for [Your Platform Name]",  // Customize the subject
+      html: `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Your OTP from Foody Website</title>
+      <style>
+        /* Include your custom CSS styles here (optional) */
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <header class="header">
+        <div class="content">
+          <h1>Your One-Time Password (OTP)</h1>
+          <p>Dear ${email},</p>
+          <p>Here's your OTP to verify your identity on Foody Website:</p>
+          <div class="otp-container">
+            <p class="otp-label">Your OTP:</p>
+            <span class="otp-code">${otp}</span>
+            <p class="otp-instructions">Enter this code to verify your identity.</p>
+            <p class="otp-validity">This OTP is valid for 1 minutes. Please do not share it with anyone.</p>
+          </div>
+          <p>If you did not request this OTP, please contact us immediately at nguyenthanhtinh667@gmail.com (if applicable).</p>
+        </div>
+        <footer class="footer">
+          <p>Thanks,<br>The Team at Foody/p>
+          <p><a href="Foody">Visit our website</a></p>
+        </footer>
+      </div>
+    </body>
+    </html>
+    `,
+    };
+    
 
     // Gửi OTP qua email
-    await sendEmail({
-      to: email,
-      subject: "Your OTP",
-      message: `Your OTP is: ${otp}`
+    transporter.sendMail(mailOptions, function(error, info) {
+      if(error){
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
     });
+    
   } catch (error) {
     console.error("Error sending OTP:", error);
     res.status(500).json({ success: false, error: "Internal server error" });
