@@ -2,7 +2,7 @@ const db = require("../models");
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const User = db.user;
-const Address = db.address;
+const Address = db.Address;
 const Op = db.Op;
 
 exports.addAddress = async (req, res) => {

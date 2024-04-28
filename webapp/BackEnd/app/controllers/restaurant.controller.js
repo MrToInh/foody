@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
-const Restaurant = db.restaurants;
+const Restaurant = db.Restaurant;
 
 const Op = db.Sequelize.Op;
 

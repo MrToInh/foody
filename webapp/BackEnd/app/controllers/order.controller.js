@@ -3,15 +3,15 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const { where } = require("sequelize");
 const User = db.user;
-const Order = db.bill;
-const MenuItem = db.menu_item;
+const Order = db.Order;
+const MenuItem = db.MenuItem;
 const Op = db.Sequelize.Op;
 async function getRestaurantIdFromMenuItemId(menuItemId) {
-  const menuItem = await db.menu_item.findOne({
+  const menuItem = await db.MenuItem.findOne({
     where: { id: menuItemId },
     include: [
       {
-        model: db.restaurants,
+        model: db.Restaurant,
         as: "restaurants",
         attributes: ["id"],
       },

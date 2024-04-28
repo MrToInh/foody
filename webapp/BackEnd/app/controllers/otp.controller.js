@@ -1,6 +1,6 @@
 // app/controllers/otp.controller.js
 const db = require("../models");
-const OTP = db.otp;
+const OTP = db.Otp;
 const User = db.user;
 const sendEmail = require("../utils/sendEmails");
 const config = require("../config/auth.config");

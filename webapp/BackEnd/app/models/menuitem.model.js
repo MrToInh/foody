@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const MenuItem = sequelize.define("menu_item", {
+    const MenuItem = sequelize.define("MenuItem", {
         
         restaurant_id: {
             type: Sequelize.INTEGER
@@ -23,3 +23,11 @@ module.exports = (sequelize, Sequelize) => {
 
     return MenuItem;
 };
+exports.getItemDetailsById= async (itemId) => {
+    try {
+        const menuItem = await MenuItem.findByPk(itemId);
+        return menuItem;
+    } catch (err) {
+        return null;
+    }
+}

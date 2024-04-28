@@ -1,5 +1,5 @@
 module.exports=(sequelize,Sequelize) => {
-    const Bill=sequelize.define("bill",{
+    const Order=sequelize.define("Order",{
         
         user_id:{
             type:Sequelize.INTEGER
@@ -35,5 +35,5 @@ module.exports=(sequelize,Sequelize) => {
             type:Sequelize.INTEGER
         },
     });
-    return Bill;
+    return Order;
 };

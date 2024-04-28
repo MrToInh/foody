@@ -1,21 +1,16 @@
 const config = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(
-  config.DB,
-  config.USER,
-  config.PASSWORD,
-  {
-    host: config.HOST,
-    dialect: config.dialect,
-    pool: {
-      max: config.pool.max,
-      min: config.pool.min,
-      acquire: config.pool.acquire,
-      idle: config.pool.idle
-    }
-  }
-);
+const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
+  host: config.HOST,
+  dialect: config.dialect,
+  pool: {
+    max: config.pool.max,
+    min: config.pool.min,
+    acquire: config.pool.acquire,
+    idle: config.pool.idle,
+  },
+});
 
 const db = {};
 
@@ -24,99 +19,110 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
-db.address = require("../models/address.model.js")(sequelize, Sequelize);
-db.delivery_driver = require("../models/delivery_driver.model.js")(sequelize, Sequelize);
-db.order_status = require("../models/order_status.model.js")(sequelize, Sequelize);
-db.restaurants = require("../models/restaurant.model.js")(sequelize, Sequelize);
-db.bill = require("../models/bill.model.js")(sequelize, Sequelize);
-db.menu_item = require("../models/menu_item.model.js")(sequelize, Sequelize);
-db.otp = require("../models/otp.model.js")(sequelize, Sequelize);
+db.Address = require("../models/address.model.js")(sequelize, Sequelize);
+db.Deliverydriver = require("./deliverydriver.model.js")(sequelize, Sequelize);
+db.Orderstatus = require("./orderstatus.model.js")(sequelize, Sequelize);
+db.Restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
+db.Order = require("./Order.model.js")(sequelize, Sequelize);
+db.MenuItem = require("./menuitem.model.js")(sequelize, Sequelize);
+db.Otp = require("../models/otp.model.js")(sequelize, Sequelize);
+db.Orderdetails = require("../models/orderdetail.model.js")(sequelize, Sequelize);
 
 //user/role
 db.role.belongsToMany(db.user, {
-  through: "user_roles"
+  through: "user_roles",
 });
 db.user.belongsToMany(db.role, {
-  through: "user_roles"
+  through: "user_roles",
 });
 //cus/address
-db.address.belongsToMany(db.user, {
-  through: "user_address"
+db.Address.belongsToMany(db.user, {
+  through: "user_address",
 });
-db.user.belongsToMany(db.address, {
-  through: "user_address"
+db.user.belongsToMany(db.Address, {
+  through: "user_address",
 });
-//bill/menu_item
-db.menu_item.belongsToMany(db.bill, {
-  through: "OrderDetails"
+//Order/MenuItem
+db.Order.hasMany(db.Orderdetails, {
+  foreignKey: "order_id",
+  as: "Orderdetails",
 });
-db.bill.belongsToMany(db.menu_item, {
-  through: "OrderDetails"
+db.Orderdetails.belongsTo(db.Order, {
+  foreignKey: "order_id",
+  as: "Order",
 });
-//cus/bill
-db.bill.belongsTo(db.user, {
-  foreignKey: 'user_id',
-  as:'user'
+db.MenuItem.hasMany(db.Orderdetails, {
+  foreignKey: "menu_item_id",
+  as: "Orderdetails",
 });
-db.user.hasMany(db.bill, {
-  foreignKey: 'user_id',
-  as:'bills'
+db.Orderdetails.belongsTo(db.MenuItem, {
+  foreignKey: "menu_item_id",
+  as: "MenuItem",
 });
-//rest/bill
-db.bill.belongsTo(db.restaurants, {
-  foreignKey: 'restaurant_id',
-  as:'restaurant'
+//cus/Order
+db.Order.belongsTo(db.user, {
+  foreignKey: "user_id",
+  as: "user",
 });
-db.restaurants.hasMany(db.bill, {
-  foreignKey: 'restaurant_id',
-  as:'bills'
+db.user.hasMany(db.Order, {
+  foreignKey: "user_id",
+  as: "Orders",
 });
-//del/bill
-db.bill.belongsTo(db.delivery_driver, {
-  foreignKey: 'delivery_id',
-  as:'delivery'
+//rest/Order
+db.Order.belongsTo(db.Restaurant, {
+  foreignKey: "restaurant_id",
+  as: "restaurant",
 });
-db.delivery_driver.hasMany(db.bill, {
-  foreignKey: 'delivery_id',
-  as:'bills'
+db.Restaurant.hasMany(db.Order, {
+  foreignKey: "restaurant_id",
+  as: "Orders",
 });
-//order_status/bill
-db.bill.belongsTo(db.order_status, {
-  foreignKey: 'order_status_id',
-  as:'order_status'
+//del/Order
+db.Order.belongsTo(db.Deliverydriver, {
+  foreignKey: "delivery_id",
+  as: "delivery",
 });
-db.order_status.hasMany(db.bill, {
-  foreignKey: 'order_status_id',
-  as:'bills'
+db.Deliverydriver.hasMany(db.Order, {
+  foreignKey: "delivery_id",
+  as: "Orders",
+});
+//Orderstatus/Order
+db.Order.belongsTo(db.Orderstatus, {
+  foreignKey: "Orderstatus_id",
+  as: "Orderstatus",
+});
+db.Orderstatus.hasMany(db.Order, {
+  foreignKey: "Orderstatus_id",
+  as: "Orders",
 });
 //rest/address
-db.restaurants.belongsTo(db.address, {
-  foreignKey: 'address_id',
-  as:'address'
+db.Restaurant.belongsTo(db.Address, {
+  foreignKey: "address_id",
+  as: "address",
 });
-db.address.hasMany(db.restaurants, {
-  foreignKey: 'address_id',
-  as:'restaurants'
+db.Address.hasMany(db.Restaurant, {
+  foreignKey: "address_id",
+  as: "Restaurant",
 });
 //item/rest
-db.restaurants.hasMany(db.menu_item, {
-  foreignKey: 'restaurant_id',
-  as:'menu_item'
+db.Restaurant.hasMany(db.MenuItem, {
+  foreignKey: "restaurant_id",
+  as: "MenuItem",
 });
-db.menu_item.belongsTo(db.restaurants, {
-  foreignKey: 'restaurant_id',
-  as:'restaurants'
+db.MenuItem.belongsTo(db.Restaurant, {
+  foreignKey: "restaurant_id",
+  as: "Restaurant",
 });
-db.user.hasMany(db.restaurants, {
-  foreignKey: 'user_id',
-  as:'restaurants'
+db.user.hasMany(db.Restaurant, {
+  foreignKey: "user_id",
+  as: "Restaurant",
 });
-db.restaurants.belongsTo(db.user, {
-  foreignKey: 'user_id',
-  as:'user'
+db.Restaurant.belongsTo(db.user, {
+  foreignKey: "user_id",
+  as: "user",
 });
-db.user.hasMany(db.otp, { foreignKey: 'userId' }); // Mỗi User có nhiều OTP
-db.otp.belongsTo(db.user, { foreignKey: 'userId' });
+db.user.hasMany(db.Otp, { foreignKey: "userId" }); // Mỗi User có nhiều Otp
+db.Otp.belongsTo(db.user, { foreignKey: "userId" });
 db.ROLES = ["user", "admin", "owner"];
 
 module.exports = db;

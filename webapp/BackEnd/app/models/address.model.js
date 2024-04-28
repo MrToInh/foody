@@ -1,5 +1,5 @@
 module.exports=(sequelize,Sequelize)=>{
-    const Address=sequelize.define("address",{
+    const Address=sequelize.define("Address",{
         unit_number:{
             type:Sequelize.STRING
         },

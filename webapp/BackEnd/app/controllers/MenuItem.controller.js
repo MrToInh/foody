@@ -2,10 +2,10 @@ const db = require("../models");
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const User = db.user;
-const MenuItem = db.menu_item;
+const MenuItem = db.MenuItem;
 const Op = db.Sequelize.Op;
 
-exports.additem = async (req, res) => {
+exports.createItem = async (req, res) => {
     try {
         const token = req.session.token;
         if (!token) {
@@ -78,9 +78,6 @@ exports.additem = async (req, res) => {
         });
     }
 }
-
-
-
 exports.deleteItem = async (req, res) => {
     try {
         const token = req.session.token;
@@ -134,7 +131,6 @@ exports.deleteItem = async (req, res) => {
         });
     }
 }
-
 exports.updateItem = async (req, res) => {
     try {
         const token = req.session.token;
@@ -193,31 +189,6 @@ exports.updateItem = async (req, res) => {
     } catch (err) {
         return res.status(500).send({
             message: err.message || "Some error occurred while updating the MenuItem."
-        });
-    }
-}
-exports.getAllItems = async (req, res) => {
-    try {
-        const menuItems = await MenuItem.findAll();
-        return res.send(menuItems);
-    } catch (err) {
-        return res.status(500).send({
-            message: err.message || "Some error occurred while retrieving menu items."
-        });
-    }
-}
-exports.getItemById = async (req, res) => {
-    try {
-        const menuItem = await MenuItem.findByPk(req.body.id);
-        if (!menuItem) {
-            return res.status(404).send({
-                message: "Item not found."
-            });
-        }
-        return res.send(menuItem);
-    } catch (err) {
-        return res.status(500).send({
-            message: err.message || "Some error occurred while retrieving the menu item."
         });
     }
 }

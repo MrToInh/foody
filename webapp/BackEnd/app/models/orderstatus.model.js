@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const OrderStatus = sequelize.define("order_status", {
+    const OrderStatus = sequelize.define("OrderStatus", {
         status_value: {
             type: Sequelize.BOOLEAN
         }

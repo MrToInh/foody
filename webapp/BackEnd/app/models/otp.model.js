@@ -1,5 +1,5 @@
 module.exports=(sequelize,Sequelize)=>{
-    const Otp=sequelize.define("otp",{
+    const Otp=sequelize.define("Otp",{
         email:{
             type:Sequelize.STRING
         },
