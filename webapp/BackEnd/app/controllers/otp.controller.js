@@ -2,12 +2,8 @@
 const db = require("../models");
 const OTP = db.Otp;
 const User = db.user;
-const sendEmail = require("../utils/sendEmails");
-const config = require("../config/auth.config");
 const Role = db.role;
 const Op = db.Sequelize.Op;
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const userCache = require("../cache/userCache");
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
@@ -25,7 +21,7 @@ exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
     const otp = generateOTP(); // Tạo OTP ngẫu nhiên
-    const otpExpiration = new Date(Date.now() + 1000000); // Thời gian hết hạn sau 1 phút
+    const otpExpiration = new Date(Date.now() + 60000); // Thời gian hết hạn sau 1 phút
 
     // Lưu OTP vào database với thời gian hết hạn
     await OTP.create({ email, otp, expiration: otpExpiration });

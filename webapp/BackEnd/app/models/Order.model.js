@@ -1,28 +1,24 @@
 module.exports=(sequelize,Sequelize) => {
     const Order=sequelize.define("Order",{
-        
         user_id:{
-            type:Sequelize.INTEGER
-        },
-        restaurant_id:{
             type:Sequelize.INTEGER
         },
         user_address_id:{
             type:Sequelize.INTEGER
         },
         order_status_id:{
-            type:Sequelize.INTEGER
+            type:Sequelize.STRING
         },
         delivery_id:{
             type:Sequelize.INTEGER
+        },
+        price:{
+            type:Sequelize.DECIMAL
         },
         order_date:{
             type:Sequelize.DATE
         },
         delivery_fee:{
-            type:Sequelize.DECIMAL
-        },
-        total_amount:{
             type:Sequelize.DECIMAL
         },
         request_delivery_date:{
@@ -37,3 +33,4 @@ module.exports=(sequelize,Sequelize) => {
     });
     return Order;
 };
+  

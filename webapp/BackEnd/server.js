@@ -1,50 +1,36 @@
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-
+const session = require('express-session');
 const app = express();
 
 app.use(cors());
-/* for Angular Client (withCredentials) */
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: ["http://localhost:8081"],
-//   })
-// );
-
-// parse requests of content-type - application/json
 app.use(express.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cookieSession({
     name: "foody-session",
-    keys: ["COOKIE_SECRET"], // should use as secret environment variable
+    keys: ["COOKIE_SECRET"],
     httpOnly: true,
     sameSite: 'strict'
   })
 );
+app.use(session({
+  secret: 'foody-session',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // set to true if your using https
+}));
 
 // database
 const db = require("./app/models");
 const Role = db.role;
+const Orderstatus = db.Orderstatus;
+const deliverydriver = db.Deliverydriver;
 
 db.sequelize.sync();
-// force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync Database with { force: true }');
-//   initial();
-// });
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to foody application." });
-});
-
-// routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/menu_item.router")(app);
@@ -63,14 +49,44 @@ function initial() {
     id: 1,
     name: "user",
   });
-
   Role.create({
     id: 2,
     name: "owner",
   });
-
   Role.create({
     id: 3,
     name: "admin",
   });
+
+  Orderstatus.create({
+    id: 1,
+    status: "Pending",
+  });
+  Orderstatus.create({
+    id: 2,
+    status: "Processing",
+  });
+  Orderstatus.create({
+    id: 3,
+    status: "Delivered",
+  });
+
+  // deliverydriver.create({
+  //   id: 1,
+  //   driver_name: "Tinh",
+  //   phone_number: "0123456789",
+  //   status: "Available",
+  // });
+  // deliverydriver.create({
+  //   id: 2,
+  //   driver_name: "Manh",
+  //   phone_number: "0987654321",
+  //   status: "Available",
+  // });
+  // deliverydriver.create({
+  //   id: 3,
+  //   driver_name: "Dang",
+  //   phone_number: "0123456789",
+  //   status: "Available",
+  // });
 }

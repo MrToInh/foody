@@ -44,19 +44,19 @@ db.user.belongsToMany(db.Address, {
 });
 //Order/MenuItem
 db.Order.hasMany(db.Orderdetails, {
-  foreignKey: "order_id",
+  foreignKey: "orderId",
   as: "Orderdetails",
 });
 db.Orderdetails.belongsTo(db.Order, {
-  foreignKey: "order_id",
+  foreignKey: "orderId",
   as: "Order",
 });
 db.MenuItem.hasMany(db.Orderdetails, {
-  foreignKey: "menu_item_id",
+  foreignKey: "menuItemId",
   as: "Orderdetails",
 });
 db.Orderdetails.belongsTo(db.MenuItem, {
-  foreignKey: "menu_item_id",
+  foreignKey: "menuItemId",
   as: "MenuItem",
 });
 //cus/Order

@@ -6,54 +6,52 @@ const User = db.user;
 const Order = db.Order;
 const MenuItem = db.MenuItem;
 const Op = db.Sequelize.Op;
-async function getRestaurantIdFromMenuItemId(menuItemId) {
-  const menuItem = await db.MenuItem.findOne({
-    where: { id: menuItemId },
-    include: [
-      {
-        model: db.Restaurant,
-        as: "restaurants",
-        attributes: ["id"],
-      },
-    ],
-  });
-
-  if (!menuItem || !menuItem.restaurants) {
-    return null;
-  }
-
-  return menuItem.restaurants.id;
-}
-exports.addOrder = async (req, res) => {
+const OrderStatus = db.Orderstatus;
+const util = require('util');
+const jwtVerify = util.promisify(jwt.verify);
+const OrderDetails = db.Orderdetails;
+exports.createOrder = async (req, res) => {
   try {
     const token = req.session.token;
     if (!token) {
-      return res
-        .status(403)
-        .send({ message: "Unauthorized access! Please login first." });
+      return res.status(403).send({
+        message: "Unauthorized access! Please login first."
+      });
     }
-    jwt.verify(token, config.secret, async (err, decoded) => {
-      if (err) {
-        return res.status(401).send({ message: "Invalid token!" });
-      } else {
-        const userId = decoded.id;
-        let user = await User.findByPk(userId);
-        if (!user) {
-          return res.status(404).send({ message: "User not found." });
-        }
-        const order = await Order.create({
-          user_id: userId,
-        });
-        if (order) {
-          const menuItems = req.body.menu_item; // This should be an array of menu item ids
-          for (let i = 0; i < menuItems.length; i++) {
-            await order.addMenuItem(menuItems[i]); // This will create a new entry in the OrderDetails table
-          }
-          res.send({ message: "Order added successfully!" });
-        }
-      }
+    const decoded = await jwtVerify(token, config.secret);
+    const userId = decoded.id;
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).send({
+        message: "User not found."
+      });
+    }
+
+    // Find the 'Pending' status ID
+    const pendingStatus = await OrderStatus.findOne({ where: { status_value: 'Pending' } });
+
+    if (!pendingStatus) {
+      throw new Error('Pending status not found');
+    }
+
+    // Create the order
+    const order = await Order.create({
+      user_id: userId,
+      user_address_id: user.address_id, // Assuming the user has an address_id field
+      order_status_id: pendingStatus.id,
+      price: null,
+      order_date: new Date(),
+      delivery_fee: null,
+      request_delivery_date: null,
+      user_driver_rating: null,
+      user_restaurant_rating: null
     });
+    req.session.orderId = order.id;
+    // Return the order
+    return order;
   } catch (err) {
-    res.status(500).send({ message: err.message });
+    res.status(500).send({
+      message: err.message
+    });
   }
 };

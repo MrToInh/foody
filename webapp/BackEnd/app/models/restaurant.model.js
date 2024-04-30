@@ -16,3 +16,4 @@ module.exports = (sequelize, Sequelize) => {
     });
     return Restaurant;  
 };
+exports.getRestaurantByMenuItemId = async (req, res) => {};
