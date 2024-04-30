@@ -8,6 +8,10 @@ label {
   padding: 40px 40px;
 }
 
+.navbar-brand {
+  width: 100px; /* Đặt kích thước chiều rộng */
+  height: auto; /* Chiều cao tự động điều chỉnh để giữ tỷ lệ khung hình */
+}
 .card {
   background-color: #f7f7f7;
   padding: 20px 25px 30px;
@@ -20,7 +24,14 @@ label {
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
-
+.navbar-brand {
+  background-image: url("./img/logo.png");
+  height: 200px;
+  width: 200 px;
+  background-size: cover;
+  transform: scale(0.7);
+  border-radius: 50%;
+}
 .profile-img-card {
   width: 96px;
   height: 96px;

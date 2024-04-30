@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cookieSession({
-    name: "bezkoder-session",
+    name: "foody-session",
     keys: ["COOKIE_SECRET"], // should use as secret environment variable
     httpOnly: true,
     sameSite: 'strict'
@@ -47,7 +47,11 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-
+require("./app/routes/menu_item.router")(app);
+require("./app/routes/restaurant.router")(app);
+require("./app/routes/address.router")(app);
+require("./app/routes/otp.routes")(app);
+require("./app/routes/order.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
@@ -62,7 +66,7 @@ function initial() {
 
   Role.create({
     id: 2,
-    name: "moderator",
+    name: "owner",
   });
 
   Role.create({
