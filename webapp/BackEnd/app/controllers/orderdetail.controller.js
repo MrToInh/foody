@@ -6,6 +6,7 @@ const Order = db.Order;
 const User = db.user;
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
+const UserAddress = db.UserAddress;
 exports.createAndAddToOrder = async (req, res) => {
     try {
       // Create the order
@@ -83,9 +84,15 @@ exports.createAndAddToOrder = async (req, res) => {
                     attributes: ['id',"fullname"],
                     include: [
                       {
-                        model: db.Address,
-                        as: 'Addresses',
-                        attributes: ['id',"unit_number","street_number","city","region"]
+                        model: UserAddress,
+                        as: 'UserAddress', // Use the correct alias
+                        include: [
+                          {
+                            model: db.Address,
+                            as: 'Address',
+                            attributes: ['id',"unit_number","street_number","city","region"]
+                          }
+                        ]
                       }
                     ]
                   }
@@ -116,6 +123,7 @@ exports.createAndAddToOrder = async (req, res) => {
           }
           const results = orderDetails.map(orderDetail => ({
             buyerName: orderDetail.Order.user.fullname,
+            buyerAddress: orderDetail.Order.user.UserAddress.map(userAddress => userAddress.Address), // Use the correct alias
             productName: orderDetail.MenuItem.item_name,
             productImage: orderDetail.MenuItem.image,
             purchaseDate: orderDetail.Order.order_date,

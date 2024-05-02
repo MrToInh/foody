@@ -4,6 +4,7 @@ const config = require("../config/auth.config");
 const User = db.user;
 const Address = db.Address;
 const Op = db.Op;
+const UserAddress = db.UserAddress;
 
 exports.addAddress = async (req, res) => {
     try{
@@ -26,11 +27,23 @@ exports.addAddress = async (req, res) => {
                     street_number: req.body.street_number,
                     city: req.body.city,
                     region: req.body.region,
-                    UserId: userId
                 });
                 if(address){
-                    res.send({message: "Address added successfully!"});
-                }}});
+                    // Create a new UserAddress record
+                    const userAddress = await UserAddress.create({
+                        address_id: address.id,
+                        user_id: userId
+                    });
+                    if(userAddress){
+                        res.send({message: "Address added successfully and UserAddress record created!"});
+                    } else {
+                        res.send({message: "Address added but failed to create UserAddress record."});
+                    }
+                } else {
+                    res.send({message: "Failed to add address."});
+                }
+            }
+        });
     }catch(err){
         res.status(500).send({message: err.message});
     }
