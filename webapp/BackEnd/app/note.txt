@@ -1,0 +1,6 @@
+API order
+-get name and adrr restaurant by id
+-get name user and adrr by id
+-get status and shipper
+-xử lý order_menu_item
+-xử lý price-tạo thêm 1 biến ở order_menu_item để lưu giá(mỗi khi giá trị ở yêu cầu cập nhập)
