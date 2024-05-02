@@ -27,6 +27,7 @@ db.Order = require("./Order.model.js")(sequelize, Sequelize);
 db.MenuItem = require("./menuitem.model.js")(sequelize, Sequelize);
 db.Otp = require("../models/otp.model.js")(sequelize, Sequelize);
 db.Orderdetails = require("../models/orderdetail.model.js")(sequelize, Sequelize);
+db.UserAddress = require("../models/useraddress.model.js")(sequelize, Sequelize);
 
 //user/role
 db.role.belongsToMany(db.user, {
@@ -36,11 +37,21 @@ db.user.belongsToMany(db.role, {
   through: "user_roles",
 });
 //cus/address
-db.Address.belongsToMany(db.user, {
-  through: "user_address",
+db.Address.hasMany(db.UserAddress, {
+  foreignKey: "address_id",
+  as: "UserAddress",
 });
-db.user.belongsToMany(db.Address, {
-  through: "user_address",
+db.UserAddress.belongsTo(db.Address, {
+  foreignKey: "address_id",
+  as: "Address",
+});
+db.user.hasMany(db.UserAddress, {
+  foreignKey: "user_id",
+  as: "UserAddress",
+});
+db.UserAddress.belongsTo(db.user, {
+  foreignKey: "user_id",
+  as: "user",
 });
 //Order/MenuItem
 db.Order.hasMany(db.Orderdetails, {

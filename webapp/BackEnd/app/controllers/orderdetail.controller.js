@@ -80,7 +80,14 @@ exports.createAndAddToOrder = async (req, res) => {
                   {
                     model: User,
                     as: 'user',
-                    attributes: ['id']
+                    attributes: ['id',"fullname"],
+                    include: [
+                      {
+                        model: db.Address,
+                        as: 'Addresses',
+                        attributes: ['id',"unit_number","street_number","city","region"]
+                      }
+                    ]
                   }
                 ]
               },
@@ -98,9 +105,17 @@ exports.createAndAddToOrder = async (req, res) => {
               }
             ]
           });
-  
+          for (let orderDetail of orderDetails) {
+            if (orderDetail.MenuItem) {
+              console.log(`Updating price for OrderDetail ${orderDetail.id} to ${orderDetail.MenuItem.price * orderDetail.quantity}`);
+              let updatedPrice =orderDetail.MenuItem.price * orderDetail.quantity;
+              await db.Orderdetails.update({ price: updatedPrice }, {
+                where: { id: orderDetail.id }
+              });
+            }
+          }
           const results = orderDetails.map(orderDetail => ({
-            buyerId: orderDetail.Order.user.id,
+            buyerName: orderDetail.Order.user.fullname,
             productName: orderDetail.MenuItem.item_name,
             productImage: orderDetail.MenuItem.image,
             purchaseDate: orderDetail.Order.order_date,
