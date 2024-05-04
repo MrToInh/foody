@@ -9,36 +9,45 @@ const config = require("../config/auth.config");
 const UserAddress = db.UserAddress;
 exports.createAndAddToOrder = async (req, res) => {
     try {
-      // Create the order
-      const order = await orderController.createOrder(req, res);
-      const orderId = await req.session.orderId;
+        // Create the order
+        const order = await orderController.createOrder(req, res);
+        const orderId = await req.session.orderId;
 
-      // If the order was created successfully
-      if (order) {
-        // Get the menu item ID and quantity from the request
-        const menuItemId = req.body.menuItemId;
-        const quantity = req.body.quantity;
-  
-        // Add the menu item to the order
-        const orderDetail = await addToOrder(orderId, menuItemId, quantity);
-  
-        if (orderDetail) {
-          res.send({
-            message: "Order created and item added successfully!",
-            orderDetail: orderDetail
-          });
+        // If the order was created successfully
+        if (order) {
+            // Get the menu item ID and quantity from the request
+            const menuItemId = req.body.menuItemId;
+            const quantity = req.body.quantity;
+
+            // Check if the menu item is already in the order
+            let orderDetail = await OrderDetails.findOne({ where: { orderId: orderId, menuItemId: menuItemId } });
+
+            if (orderDetail) {
+                // If the menu item is already in the order, update the quantity
+                orderDetail.quantity += quantity;
+                await orderDetail.save();
+            } else {
+                // If the menu item is not in the order, add it
+                orderDetail = await addToOrder(orderId, menuItemId, quantity);
+            }
+
+            if (orderDetail) {
+                res.send({
+                    message: "Order created and item added successfully!",
+                    orderDetail: orderDetail
+                });
+            }
+        } else {
+            res.status(500).send({
+                message: "Order creation failed."
+            });
         }
-      } else {
-        res.status(500).send({
-          message: "Order creation failed."
-        });
-      }
     } catch (err) {
-      res.status(500).send({
-        message: err.message
-      });
+        res.status(500).send({
+            message: err.message
+        });
     }
-  };
+};
   
   const addToOrder = async (orderId, menuItemId, quantity) => {
     // Find the menu item
@@ -140,3 +149,59 @@ exports.createAndAddToOrder = async (req, res) => {
     }
   };
   
+// Delete an order
+exports.deleteOrder = async (req, res) => {
+    try {
+        const token = req.session.token;
+        if (!token) {
+            return res.status(403).send({ message: "Unauthorized access! Please login first." });
+        }
+        jwt.verify(token, config.secret, async (err, decoded) => {
+            if (err) {
+                return res.status(401).send({ message: "Invalid token!" });
+            } else {
+                const userId = decoded.id;
+                const { orderId } = req.body;
+                const order = await Order.findOne({ where: { id: orderId, user_id: userId } });
+                if (!order) {
+                    return res.status(404).send({ message: "Order not found." });
+                }
+                await Order.destroy({ where: { id: orderId } });
+                return res.send({ message: "Order deleted successfully." });
+            }
+        });
+    } catch (err) {
+        return res.status(500).send({ message: err.message || "Some error occurred while deleting the order." });
+    }
+}
+
+// Edit an order
+exports.editOrder = async (req, res) => {
+    try {
+        const token = req.session.token;
+        if (!token) {
+            return res.status(403).send({ message: "Unauthorized access! Please login first." });
+        }
+        jwt.verify(token, config.secret, async (err, decoded) => {
+            if (err) {
+                return res.status(401).send({ message: "Invalid token!" });
+            } else {
+                const userId = decoded.id;
+                const { orderId, menuItemId, quantity } = req.body;
+                const order = await Order.findOne({ where: { id: orderId, user_id: userId } });
+                if (!order) {
+                    return res.status(404).send({ message: "Order not found." });
+                }
+                const orderDetail = await OrderDetails.findOne({ where: { orderId: orderId, menuItemId: menuItemId } });
+                if (!orderDetail) {
+                    return res.status(404).send({ message: "Order detail not found." });
+                }
+                orderDetail.quantity = quantity;
+                await orderDetail.save();
+                return res.send({ message: "Order updated successfully." });
+            }
+        });
+    } catch (err) {
+        return res.status(500).send({ message: err.message || "Some error occurred while updating the order." });
+    }
+}

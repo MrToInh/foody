@@ -193,3 +193,31 @@ exports.updateItem = async (req, res) => {
     }
 }
 
+// Get all menu items
+exports.getAllItems = async (req, res) => {
+    try {
+        const menuItems = await MenuItem.findAll();
+        return res.send(menuItems);
+    } catch (err) {
+        return res.status(500).send({
+            message: err.message || "Some error occurred while retrieving the menu items."
+        });
+    }
+}
+
+// Get all menu items for a specific restaurant
+exports.getItemsByRestaurant = async (req, res) => {
+    try {
+        const restaurantId = req.params.restaurantId;
+        const menuItems = await MenuItem.findAll({
+            where: {
+                restaurant_id: restaurantId
+            }
+        });
+        return res.send(menuItems);
+    } catch (err) {
+        return res.status(500).send({
+            message: err.message || "Some error occurred while retrieving the menu items."
+        });
+    }
+}
