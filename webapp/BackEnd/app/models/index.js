@@ -20,7 +20,7 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.Address = require("../models/address.model.js")(sequelize, Sequelize);
-db.Deliverydriver = require("./deliverydriver.model.js")(sequelize, Sequelize);
+db.drivers = require("./drivers.model.js")(sequelize, Sequelize);
 db.Orderstatus = require("./orderstatus.model.js")(sequelize, Sequelize);
 db.Restaurant = require("../models/restaurant.model.js")(sequelize, Sequelize);
 db.Order = require("./Order.model.js")(sequelize, Sequelize);
@@ -28,7 +28,7 @@ db.MenuItem = require("./menuitem.model.js")(sequelize, Sequelize);
 db.Otp = require("../models/otp.model.js")(sequelize, Sequelize);
 db.Orderdetails = require("../models/orderdetail.model.js")(sequelize, Sequelize);
 db.UserAddress = require("../models/useraddress.model.js")(sequelize, Sequelize);
-
+db.DriverProfile = require("./driverprofile.model.js")(sequelize, Sequelize);
 //user/role
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -89,11 +89,11 @@ db.Restaurant.hasMany(db.Order, {
   as: "Orders",
 });
 //del/Order
-db.Order.belongsTo(db.Deliverydriver, {
+db.Order.belongsTo(db.drivers, {
   foreignKey: "delivery_id",
   as: "delivery",
 });
-db.Deliverydriver.hasMany(db.Order, {
+db.drivers.hasMany(db.Order, {
   foreignKey: "delivery_id",
   as: "Orders",
 });
@@ -132,8 +132,19 @@ db.Restaurant.belongsTo(db.user, {
   foreignKey: "user_id",
   as: "user",
 });
+
+db.drivers.hasOne(db.DriverProfile, {
+  foreignKey: 'driverId',
+  as: 'driverProfile',
+});
+
+db.DriverProfile.belongsTo(db.drivers, {
+  foreignKey: 'driverId',
+  as: 'driver',
+});
 db.user.hasMany(db.Otp, { foreignKey: "userId" }); // Mỗi User có nhiều Otp
 db.Otp.belongsTo(db.user, { foreignKey: "userId" });
+
 db.ROLES = ["user", "admin", "owner"];
 
 module.exports = db;

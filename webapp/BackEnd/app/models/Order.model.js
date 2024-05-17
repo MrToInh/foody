@@ -3,8 +3,17 @@ module.exports=(sequelize,Sequelize) => {
         user_id:{
             type:Sequelize.INTEGER
         },
-        user_address_id:{
-            type:Sequelize.INTEGER
+        receiver_name:{
+            type:Sequelize.JSON
+        } ,
+        from_address:{
+            type:Sequelize.JSON
+        },
+        to_address:{
+            type:Sequelize.JSON
+        },
+        item:{
+            type:Sequelize.JSON
         },
         order_status_id:{
             type:Sequelize.STRING

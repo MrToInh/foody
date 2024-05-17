@@ -35,12 +35,26 @@ const logout = () => {
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
-
+const editProfile = (token, password, phoneNumber) => {
+  return axios
+    .put(API_URL + "editProfile", {
+      password,
+      phone_number: phoneNumber,
+    }, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    })
+    .then((response) => {
+      return response.data;
+    });
+};
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  editProfile,
 }
 
 export default AuthService;
