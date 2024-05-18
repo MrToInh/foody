@@ -1,0 +1,406 @@
+[33mcommit 8c9bcb37f13792b2b17598d6df43fa7b4b9f1306[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Fri May 17 14:05:21 2024 +0700
+
+    Add secret file to .gitignore
+
+[33mcommit 2dcfbd0de563cb3c018d8a21d2ce8b963a5f4a37[m
+Merge: f7996d84 e5c74455
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Fri May 17 14:01:38 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody
+
+[33mcommit f7996d84c821a692115e48b0a06e12e330eaf8da[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Fri May 17 14:01:13 2024 +0700
+
+    update
+
+[33mcommit e5c74455bdd344b2ad22546981b5af7b6cbcdd72[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Mon Apr 15 23:46:22 2024 +0700
+
+    15/4
+
+[33mcommit 9b5aa30efe9243ed2fe38307a300ff763d413142[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Mon Apr 15 23:45:40 2024 +0700
+
+    15/4
+
+[33mcommit aaed611b806cbdf84df806b8d9bc05a1a5e6aaa5[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Sun Apr 7 10:23:12 2024 +0700
+
+    clone foody tinh
+
+[33mcommit 3aa0265e6b4567ca84a750b78399550e03fb46e3[m
+Merge: b085f38d 9a8b00f0
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Mon Apr 1 23:51:25 2024 +0700
+
+    Merge branch 'tinh'
+
+[33mcommit 9a8b00f0c13c1b578d3ef457f951883b906d545c[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Mon Apr 1 23:41:51 2024 +0700
+
+    complete login
+
+[33mcommit ebd16025982e1f6a25e502c9ab94606dd7e4fef8[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Mon Apr 1 19:02:31 2024 +0700
+
+    newcommit
+
+[33mcommit 45bbc59af7d94f4794851b238be75be7c73fe93b[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Sun Mar 31 15:29:27 2024 +0700
+
+    commit add
+
+[33mcommit dd92701a48bbda1c5124470276630d5bf3cc8c33[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Sun Mar 31 15:18:53 2024 +0700
+
+    newcommit
+
+[33mcommit fc1a6e92a66eb3441951ca803324828f32e7191e[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Sun Mar 31 13:45:31 2024 +0700
+
+    new clone
+
+[33mcommit cd6ccd22516655f67244424fc3957ee51072773e[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 27 00:24:20 2024 +0700
+
+    commit
+
+[33mcommit b085f38ddfbe824beec799917952ead8b7cedac8[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Mon Mar 25 10:31:49 2024 +0700
+
+    update25/3/2024
+
+[33mcommit 630e0ede4527b66946732df413ea85037482ff14[m
+Merge: 8c4024af 3b0fa16f
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Mon Mar 25 10:28:58 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody
+
+[33mcommit 8c4024affef5da051e41d1161becb2b95a3dc8f7[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Mon Mar 25 10:28:04 2024 +0700
+
+    Update 25_3_2024
+
+[33mcommit dea0e01989dd062ba02a2000fc4929e8a8b860b4[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Sat Mar 23 07:56:32 2024 +0700
+
+    frist commit
+
+[33mcommit 3b0fa16fe86aedb60a9fd2f92568a5acd3defffb[m
+Merge: 43deb5d5 6eb1bdcb
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Thu Mar 21 23:49:48 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody
+
+[33mcommit 43deb5d5ab3ac5b7c03ea7e4b83c473445d11be8[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Thu Mar 21 23:48:53 2024 +0700
+
+    xoa
+
+[33mcommit 12acde8c3d50783a2c61315425aef783f8bf9ba2[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Thu Mar 21 23:45:49 2024 +0700
+
+    first commit db
+
+[33mcommit 6eb1bdcb313af02e59041af0c59e043755e0dbfd[m
+Author: Ngocmanh1607 <127979809+Ngocmanh1607@users.noreply.github.com>
+Date:   Sun Mar 17 19:49:32 2024 +0700
+
+    Delete ngocmanh.txt
+
+[33mcommit b815bbd9cb9f6abe9eb26a4868d300629fd53e7c[m
+Author: Ngocmanh1607 <127979809+Ngocmanh1607@users.noreply.github.com>
+Date:   Sun Mar 17 19:49:19 2024 +0700
+
+    Delete jav
+
+[33mcommit 9b997fd127af45688ea3fd5f30bab11f75462985[m
+Author: Nguyen Duy Manh <92105842+ZxxMiaxxZ@users.noreply.github.com>
+Date:   Sun Mar 17 17:59:36 2024 +0700
+
+    Create jav
+
+[33mcommit 176e44464d6d5d8c52f1b3f1ff5f23e75a41a95a[m
+Author: Nguyen Duy Manh <92105842+ZxxMiaxxZ@users.noreply.github.com>
+Date:   Sun Mar 17 17:55:55 2024 +0700
+
+    Bản cũ mới nhất (hôm học trên trường)
+
+[33mcommit 6e97671af84ae41e9016ca3b7bfc8c5c3c9da1c3[m
+Author: Nguyen Duy Manh <92105842+ZxxMiaxxZ@users.noreply.github.com>
+Date:   Sun Mar 17 17:47:38 2024 +0700
+
+    bản cũ chưa fix nhiều lỗi(coi zalo)
+
+[33mcommit d1f5fa67f03d4c098f56130bc7d9635bff93a543[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Sat Mar 16 16:13:07 2024 +0700
+
+    todo
+
+[33mcommit 0a1c4ba90fa9ac5e7bbb78f497399c27e6a75ddb[m
+Author: Ngocmanh1607 <ngocmanh160703@gmail.com>
+Date:   Tue Mar 12 09:22:20 2024 +0700
+
+    ngoc manh up
+
+[33mcommit 9177813b3ec6cd6f6d9b549e1f400e94f3f4affa[m
+Merge: 56bd2069 926ac290
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Tue Mar 12 07:53:21 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody
+
+[33mcommit 56bd20699d90758b678b7e19cff28cf1009b45de[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Tue Mar 12 07:53:14 2024 +0700
+
+    Đồ án cuối kì(Tiếng việt)
+
+[33mcommit 926ac29099458a2725611cc785ad9ed7772de840[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:57:43 2024 +0700
+
+    hello
+
+[33mcommit 831f3ec0ed9cd7d225aebbc23c30c23e5591c6d5[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:53:47 2024 +0700
+
+    xoa
+
+[33mcommit efe62d358d7068844724e72390a974bf792f5db0[m
+Merge: a8d45c7e c4a7c392
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:50:28 2024 +0700
+
+    xoa
+
+[33mcommit c4a7c392de6ec3242bd52aaf2acecec318c4aa78[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:47:25 2024 +0700
+
+    them
+
+[33mcommit c058a7e9a18cc061b5db89522b7e95c82dcec0d2[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:46:03 2024 +0700
+
+    xoa
+
+[33mcommit 7f46461cb4a86e4762b0b1b86760c9052f1289e6[m
+Merge: e6cc46e6 6d1b9461
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:26:43 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody into tinh
+
+[33mcommit a8d45c7ef1950bc81693e6259ed7f554017a69f0[m
+Merge: 6d1b9461 023ff3f1
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:26:39 2024 +0700
+
+    Merge branch 'duymanh'
+
+[33mcommit 023ff3f15c112cfc80612334be9940b0ca5d05dc[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:26:04 2024 +0700
+
+    Đồ án cuối kì.doc
+    
+    Đồ án đây nè ^^
+    
+    Co-Authored-By: Bao Dang <126964889+BDang029@users.noreply.github.com>
+
+[33mcommit 6d1b94611026a7be72a5e83c54a7775f8ccb8bd7[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:24:46 2024 +0700
+
+    Revert "xoa"
+    
+    This reverts commit 99e1a9ccfb343a30120fd42d39dfefd563925d2b.
+
+[33mcommit 672acabeea4cf466513995fb4d92682ca8e3d5c5[m
+Merge: 99e1a9cc 23c83181
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:24:28 2024 +0700
+
+    Merge branch 'duymanh'
+
+[33mcommit e6cc46e6db81d758446941f70cc22c569bb8a93f[m
+Merge: 93d51fd0 99e1a9cc
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:24:05 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody into tinh
+
+[33mcommit 99e1a9ccfb343a30120fd42d39dfefd563925d2b[m
+Author: BDang029 <21110764@student.hcmute.edu.vn>
+Date:   Wed Mar 6 15:23:09 2024 +0700
+
+    xoa
+
+[33mcommit 93d51fd0560ec5f67e362b516e7b3b3e4fb2b36b[m
+Merge: 266ad4f8 50c3b6e2
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:22:54 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody into tinh
+
+[33mcommit 50c3b6e201e7882caaba27c7cdf46aefbd922209[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:17:04 2024 +0700
+
+    Revert "test"
+    
+    This reverts commit 7f3c11a5d13b1c56b348c32be922bd0f5cb250da.
+
+[33mcommit 9fe47d3317bc3c3bf74607afdf94e6e07ab46a1f[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:16:10 2024 +0700
+
+    Revert "Merge branch 'dang'"
+    
+    This reverts commit bac8ee75fd2ae991a0fd125666ae3a2b71ac26bc, reversing
+    changes made to 93852f12ccabd1f9cb579aa3b1591d3582dc6480.
+
+[33mcommit ef54f20b9a26225291791749d78682fff04b64dc[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:15:14 2024 +0700
+
+    Revert "Revert "Revert "first commit"""
+    
+    This reverts commit cf5664b246e8f85247e2546f55d169caf498b9e1.
+
+[33mcommit cf5664b246e8f85247e2546f55d169caf498b9e1[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:14:50 2024 +0700
+
+    Revert "Revert "first commit""
+    
+    This reverts commit 3a464b4be00e81a8eebfed4df322984775dddf7e.
+
+[33mcommit 3a464b4be00e81a8eebfed4df322984775dddf7e[m
+Author: BDang029 <21110764@student.hcmute.edu.vn>
+Date:   Wed Mar 6 15:13:19 2024 +0700
+
+    Revert "first commit"
+    
+    This reverts commit 6ad38785f8a739815d58492912aa6a10ce29eab1.
+
+[33mcommit 266ad4f80995328566dbf978c8c83186edec0676[m
+Merge: 9d16d7dc 01d4511c
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:11:59 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody into tinh
+
+[33mcommit 01d4511c946a8d2338d63cb3f2b20e2b87c476c9[m
+Author: BDang029 <21110764@student.hcmute.edu.vn>
+Date:   Wed Mar 6 15:10:49 2024 +0700
+
+    Revert "thaydoi"
+    
+    This reverts commit dfd3c86501706c9402b9c602e8adf25138a76b52.
+
+[33mcommit dfd3c86501706c9402b9c602e8adf25138a76b52[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:11:00 2024 +0700
+
+    thaydoi
+
+[33mcommit de59352e4df6e2cfdda29acc2a205ab37c916da4[m
+Merge: 4b2206db 6ad38785
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:08:33 2024 +0700
+
+    Merge pull request #2 from MrToInh/tinh
+    
+    first commit
+
+[33mcommit 4b2206db77b5c60d27886684fcbbcdb9da6c8ea6[m
+Merge: bac8ee75 7f3c11a5
+Author: BDang029 <21110764@student.hcmute.edu.vn>
+Date:   Wed Mar 6 15:06:40 2024 +0700
+
+    Merge remote-tracking branch 'origin/duymanh'
+
+[33mcommit 23c831814b9d0032c1a68ef93a977c0da668ab70[m
+Merge: 7f3c11a5 93852f12
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:06:07 2024 +0700
+
+    Merge branch 'main' into duymanh
+
+[33mcommit 7f3c11a5d13b1c56b348c32be922bd0f5cb250da[m
+Author: Nguyen Duy Manh <duym63094@gmail.com>
+Date:   Wed Mar 6 15:05:46 2024 +0700
+
+    test
+
+[33mcommit bac8ee75fd2ae991a0fd125666ae3a2b71ac26bc[m
+Merge: 93852f12 e0e81ef1
+Author: BDang029 <21110764@student.hcmute.edu.vn>
+Date:   Wed Mar 6 15:05:21 2024 +0700
+
+    Merge branch 'dang'
+
+[33mcommit 9d16d7dcf213b3dd419aa8bfb5ffcabb2ca8a892[m
+Merge: 6ad38785 93852f12
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:05:12 2024 +0700
+
+    Merge branch 'main' of https://github.com/MrToInh/foody into tinh
+
+[33mcommit 6ad38785f8a739815d58492912aa6a10ce29eab1[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 15:01:32 2024 +0700
+
+    first commit
+
+[33mcommit e0e81ef1489b3835679d5ab29d563877ecfee50d[m
+Author: BDang029 <21110764@student.hcmute.edu.vn>
+Date:   Wed Mar 6 15:00:26 2024 +0700
+
+    Create branch cua tao.txt
+
+[33mcommit 93852f12ccabd1f9cb579aa3b1591d3582dc6480[m
+Merge: 072e950c 03ef86c6
+Author: Nguyen Duy Manh <92105842+ZxxMiaxxZ@users.noreply.github.com>
+Date:   Wed Mar 6 14:53:56 2024 +0700
+
+    Merge pull request #1 from MrToInh/duymanh
+    
+    Add files via upload
+
+[33mcommit 03ef86c6a60800979d07b399102cd77f4e8c88bf[m
+Author: Nguyen Duy Manh <92105842+ZxxMiaxxZ@users.noreply.github.com>
+Date:   Wed Mar 6 14:49:48 2024 +0700
+
+    Add files via upload
+
+[33mcommit 072e950c937294596b3b401d56ed92a05b654e8e[m
+Author: Nguyễn Thanh Tịnh <142908230+MrToInh@users.noreply.github.com>
+Date:   Wed Mar 6 14:32:51 2024 +0700
+
+    Initial commit
