@@ -142,3 +142,24 @@ exports.updateDriverAndProfile = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+exports.getDriverInfo = async (req, res) => {
+  try {
+    const driverId = req.userId;
+    const driver = await drivers.findByPk(driverId);
+
+    if (!driver) {
+      return res.status(404).send({ message: "Driver Not found." });
+    }
+
+    // Tìm driverProfile
+    const driverProfile = await db.DriverProfile.findOne({
+      where: { driver_id: driver.id }
+    });
+
+    // Gửi thông tin driver và driverProfile
+    res.send({ driver, driverProfile });
+  } catch (error) {
+    console.error("Error getting driver info:", error);
+    res.status(500).send({ message: error.message });
+  }
+};
