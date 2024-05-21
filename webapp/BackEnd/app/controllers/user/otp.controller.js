@@ -144,7 +144,7 @@ exports.verifyOTP = async (req, res) => {
         // Xóa thông tin user khỏi cache sau khi lưu vào DB thành công
         userCache.deleteUserInfo(email);
 
-        res.send({ message: "User created successfully!" });
+        res.status(200).send({ message: "User created successfully!" });
       }
     } else {
       res.status(400).json({ success: false, error: "Invalid OTP" });

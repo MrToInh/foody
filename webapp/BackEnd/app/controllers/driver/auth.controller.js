@@ -122,19 +122,26 @@ exports.updateDriverAndProfile = async (req, res) => {
     driver.phone_number = phone_number || driver.phone_number;
     await driver.save();
 
-    // Tìm hoặc tạo driverProfile
-    const [driverProfile, created] = await db.DriverProfile.findOrCreate({
-      where: { driver_id: driver.id },
-      defaults: { driver_id: driver.id, licenseNumber, vehicleType, experience }
+    // Tìm driverProfile
+    let driverProfile = await db.DriverProfile.findOne({
+      where: { driver_id: driver.id }
     });
 
-    // Nếu driverProfile đã tồn tại, cập nhật thông tin
-    if (!created) {
-      driverProfile.licenseNumber = licenseNumber || driverProfile.licenseNumber;
-      driverProfile.vehicleType = vehicleType || driverProfile.vehicleType;
-      driverProfile.experience = experience || driverProfile.experience;
-      await driverProfile.save();
+    // Nếu không tìm thấy, tạo mới
+    if (!driverProfile) {
+      driverProfile = await db.DriverProfile.create({
+        driver_id: driver.id,
+        driver_licenseNumber,
+        vehicleType,
+        cicard_number
+      });
     }
+
+    // Cập nhật thông tin driverProfile
+    driverProfile.driver_licenseNumber = licenseNumber || driverProfile.driver_licenseNumber;
+    driverProfile.vehicleType = vehicleType || driverProfile.vehicleType;
+    driverProfile.cicard_number = experience || driverProfile.cicard_number;
+    await driverProfile.save();
 
     res.send({ message: "Driver and Driver Profile updated successfully!" });
   } catch (error) {
