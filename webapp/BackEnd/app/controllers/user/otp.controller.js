@@ -84,28 +84,6 @@ exports.sendOTP = async (req, res) => {
 // Logic xác thực OTP
 // Logic xác thực OTP
 exports.verifyOTP = async (req, res) => {
-  // try {
-  //   const { email, otp } = req.body; // Chỉnh sửa: không cần .email ở cuối
-
-  //   // Tìm OTP trong database
-  //   const existingOTP = await OTP.findOne({ where: { email, otp, } });
-
-  //   if (existingOTP) {
-  //     if (existingOTP.expiration < Date.now()) {
-  //       await existingOTP.destroy();
-  //     } else {
-  //       res.status(400).json({ success: false, error: "Expired OTP" });
-  //       await existingOTP.destroy();
-  //       await User.destroy({ where: { email } });
-  //     }
-  //   } else {
-  //     // Nếu OTP không hợp lệ
-  //     res.status(400).json({ success: false, error: "Invalid OTP" });
-  //   }
-  // } catch (error) {
-  //   console.error("Error verifying OTP:", error);
-  //   res.status(500).json({ success: false, error: "Internal server error" });
-  // }
   try {
     const { email, otp } = req.body;
 

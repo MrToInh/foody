@@ -6,15 +6,17 @@ const Op = db.Sequelize.Op;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const userCache = require("../../cache/userCache.js");
+const { fcm_v1 } = require("googleapis");
 // Import module để xác thực OTP
 exports.signup = async (req, res) => {
   try {
-    const { username, email, password, phone_number, licenseNumber, vehicleType, experience } = req.body;
+    const { username, email, password,fcm_token, phone_number, licenseNumber, vehicleType, experience } = req.body;
 
     userCache.saveUserInfo(email, {
       username: username,
       email: email,
       password: bcrypt.hashSync(password, 8),
+      fcm_token: fcm_token,
       phone_number: phone_number,
     });
 
