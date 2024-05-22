@@ -101,6 +101,7 @@ exports.verifyOTP = async (req, res) => {
           username: userInfo.username,
           email: userInfo.email,
           password: userInfo.password,
+          phone: userInfo.phone,
         });
 
         // Xóa thông tin user khỏi cache sau khi lưu vào DB thành công

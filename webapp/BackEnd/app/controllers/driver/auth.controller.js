@@ -10,14 +10,14 @@ const { fcm_v1 } = require("googleapis");
 // Import module để xác thực OTP
 exports.signup = async (req, res) => {
   try {
-    const { username, email, password,fcm_token, phone_number, licenseNumber, vehicleType, experience } = req.body;
+    const { username, email, password,fcm_token, phone, licenseNumber, vehicleType, experience } = req.body;
 
     userCache.saveUserInfo(email, {
       username: username,
       email: email,
       password: bcrypt.hashSync(password, 8),
       fcm_token: fcm_token,
-      phone_number: phone_number,
+      phone: phone,
     });
 
     await OTP.sendOTP(req, res);
@@ -118,10 +118,12 @@ exports.updateDriverAndProfile = async (req, res) => {
       return res.status(404).send({ message: "Driver Not found." });
     }
 
-    const { username, email, phone_number, licenseNumber, vehicleType, experience } = req.body;
+    const { avatar,name,username, email, phone, driver_licenseNumber, vehicleType, cicard_number } = req.body;
+    driver.name = name || driver.name;
+    driver.avatar = avatar || driver.avatar;
     driver.username = username || driver.username;
     driver.email = email || driver.email;
-    driver.phone_number = phone_number || driver.phone_number;
+    driver.phone_number = phone || driver.phone;
     await driver.save();
 
     // Tìm driverProfile
@@ -140,9 +142,9 @@ exports.updateDriverAndProfile = async (req, res) => {
     }
 
     // Cập nhật thông tin driverProfile
-    driverProfile.driver_licenseNumber = licenseNumber || driverProfile.driver_licenseNumber;
+    driverProfile.driver_licenseNumber = driver_licenseNumber || driverProfile.driver_licenseNumber;
     driverProfile.vehicleType = vehicleType || driverProfile.vehicleType;
-    driverProfile.cicard_number = experience || driverProfile.cicard_number;
+    driverProfile.cicard_number = cicard_number || driverProfile.cicard_number;
     await driverProfile.save();
 
     res.send({ message: "Driver and Driver Profile updated successfully!" });
