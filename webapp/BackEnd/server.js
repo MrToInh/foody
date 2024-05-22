@@ -26,60 +26,17 @@ app.use(session({
 }));
 
 // Initialize Firebase
+process.env.GOOGLE_APPLICATION_CREDENTIALS="my-applicationw2-7ab21-firebase-adminsdk-h8edm-f1cfbcc5c9.json" ;
 admin.initializeApp({
-  credential: admin.credential.applicationDefault()
-});
-
-const messaging = admin.messaging();
-
-// Store FCM tokens
-let userTokens = [];
-let driverTokens = [];
-
-// Endpoint to save FCM token
-app.post('/saveToken', (req, res) => {
-  const { token, userType } = req.body;
-
-  if (userType === 'user') {
-    userTokens.push(token);
-  } else if (userType === 'driver') {
-    driverTokens.push(token);
-  }
-
-  res.send({ success: true });
-});
-
-// Endpoint to send notification
-app.post('/order', (req, res) => {
-  const { title, body } = req.body;
-
-  // Send notification to all drivers
-  driverTokens.forEach(token => {
-    const message = {
-      notification: {
-        title,
-        body
-      },
-      token
-    };
-
-    messaging.send(message)
-      .then((response) => {
-        console.log('Successfully sent message:', response);
-      })
-      .catch((error) => {
-        console.log('Error sending message:', error);
-      });
-  });
-
-  res.send({ success: true });
+  credential: admin.credential.applicationDefault(),
+  projectId: 'my-applicationw2-7ab21',
 });
 
 // database
 const db = require("./app/models");
 const Role = db.role;
 const Orderstatus = db.Orderstatus;
-const deliverydriver = db.Deliverydriver;
+
 
 db.sequelize.sync();
 require("./app/routes/user/auth.routes")(app);
@@ -89,6 +46,8 @@ require("./app/routes/user/restaurant.router")(app);
 require("./app/routes/user/address.router")(app);
 require("./app/routes/user/otp.routes")(app);
 require("./app/routes/user/order.routes")(app);
+require("./app/routes/user/notification.router")(app);
+
 
 require("./app/routes/driver/auth.routes")(app);
 require("./app/routes/driver/otp.routes")(app);

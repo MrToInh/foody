@@ -29,6 +29,7 @@ db.Otp = require("../models/otp.model.js")(sequelize, Sequelize);
 db.Orderdetails = require("../models/orderdetail.model.js")(sequelize, Sequelize);
 db.UserAddress = require("../models/useraddress.model.js")(sequelize, Sequelize);
 db.DriverProfile = require("./driverprofile.model.js")(sequelize, Sequelize);
+db.Notification = require("./notification.model.js")(sequelize, Sequelize);
 //user/role
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -144,7 +145,12 @@ db.DriverProfile.belongsTo(db.drivers, {
 });
 db.user.hasMany(db.Otp, { foreignKey: "userId" }); // Mỗi User có nhiều Otp
 db.Otp.belongsTo(db.user, { foreignKey: "userId" });
-
+db.user.hasMany(db.Notification, { as: 'userId' });
+db.Notification.belongsTo(db.user, { foreignKey: 'userId' });
+db.drivers.hasMany(db.Notification, { as: 'driverId' });
+db.Notification.belongsTo(db.drivers, { foreignKey: 'driverId' });
+db.Order.hasMany(db.Notification, { foreignKey: 'orderId', as: 'Notifications' });
+db.Notification.belongsTo(db.Order, { foreignKey: 'orderId', as: 'Order' });
 db.ROLES = ["user", "admin", "owner"];
 
 module.exports = db;
