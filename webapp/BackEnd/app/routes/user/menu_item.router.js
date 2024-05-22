@@ -8,5 +8,6 @@ module.exports = app => {
     router.post('/additem',verifyToken, menu_item_controller.createItem);
     router.get('/getall', menu_item_controller.getAllItems);
     router.get('/getbyrestaurant/:restaurantId', menu_item_controller.getItemsByRestaurant);
+    router.get('/getbyid/:itemId', menu_item_controller.getItemById);
     app.use('/api/menu_items', router);
 }
