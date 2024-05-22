@@ -195,3 +195,19 @@ exports.verifyOTP = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+exports.getUserProfile = async (req, res) => {
+  try{
+      const userId = req.userId;
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res.status(404).send({
+          message: "User not found."
+        });
+      }
+      return res.send(user);
+  }catch(err){
+    return res.status(500).send({
+      message: err.message || "Some error occurred while updating the profile."
+    });
+  }
+}

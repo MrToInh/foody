@@ -25,5 +25,6 @@ module.exports = function(app) {
   app.post("/api/auth/signout",verifyToken, controller.signout);
   app.post("/api/auth/verifyOTP", controller.verifyOTP);
   app.post("/api/auth/forgotPassword", controller.forgotPassword);
+  app.get("/api/auth/getUserProfile",verifyToken, controller.getUserProfile);
   
 };
