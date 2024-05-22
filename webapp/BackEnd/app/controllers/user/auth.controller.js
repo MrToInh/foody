@@ -7,6 +7,7 @@ const Op = db.Sequelize.Op;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const userCache = require("../../cache/userCache.js");
+const nodemailer = require('nodemailer');
 // Import module để xác thực OTP
 exports.signup = async (req, res) => {
   try {
@@ -113,3 +114,100 @@ exports.editProfile = async (req, res) => {
     });
   }
 };
+function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    if (!newPassword) {
+      return res.status(400).send({ message: "New password is required" });
+    }
+
+    // Check if user exists
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).send({ message: 'User not found.' });
+    }
+
+    // Generate OTP
+    const otp = generateOTP();
+
+    // Hash new password and save OTP and new password in cache
+    const hashedPassword = bcrypt.hashSync(newPassword, 8);
+    userCache.saveUserInfo(email, { otp, newPassword: hashedPassword });
+
+    // Create transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user:'nguyenthanhtinh667@gmail.com',
+        pass:'ffinnsztpuaiwtfu'
+      }
+    });
+
+    // Mail options
+    let mailOptions = {
+      from: 'your-email@gmail.com',
+      to: email,
+      subject: 'Password Reset OTP',
+      text: `Your OTP for password reset is ${otp}`
+    };
+
+    // Send email with OTP
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    res.send({ message: 'OTP sent successfully! Please check your email.' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+
+exports.verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    // Retrieve OTP and new password from cache
+    const userInfo = userCache.getUserInfo(email);
+    if (!userInfo || userInfo.otp !== otp) {
+      return res.status(400).send({ message: 'Invalid OTP.' });
+    }
+
+    // Update user's password
+    const user = await User.findOne({ where: { email } });
+    user.password = userInfo.newPassword;
+    await user.save();
+
+    // Clear user info from cache
+    userCache.deleteUserInfo(email);
+
+    res.send({ message: 'Password updated successfully!' });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+exports.getUserProfile = async (req, res) => {
+  try{
+      const userId = req.userId;
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res.status(404).send({
+          message: "User not found."
+        });
+      }
+      return res.send(user);
+  }catch(err){
+    return res.status(500).send({
+      message: err.message || "Some error occurred while updating the profile."
+    });
+  }
+}
