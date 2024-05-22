@@ -20,7 +20,7 @@ exports.signup = async (req, res) => {
       
     });
     await OTP.sendOTP(req, res);
-    res.send({ message: "OTP sent successfully! Please enter OTP for verification." });
+    res.status(200).send({ message: "OTP sent successfully! Please enter OTP for verification." });
     
   } catch (error) {
     res.status(500).send({ message: error.message });
