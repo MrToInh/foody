@@ -172,3 +172,14 @@ exports.getItemsByRestaurant = async (req, res) => {
         });
     }
 }
+exports.getItemById = async (req, res) => {
+    try {
+        const itemId = req.params.itemId;
+        const menuItem = await MenuItem.findByPk(itemId);
+        return res.send(menuItem);
+    } catch (err) {
+        return res.status(500).send({
+            message: err.message || "Some error occurred while retrieving the menu item."
+        });
+    }
+}
