@@ -54,3 +54,30 @@ exports.notifyDriver = async (req, res) => {
     res.status(500).send({ message: 'Error sending notification.' });
   }
 };
+exports.notifyRandomDriver = async (req, res) => {
+  try {
+    const drivers = await Driver.findAll({ where: { status: null } });
+    if (!drivers.length) {
+      return res.status(404).send({ message: 'No available driver to take the order.' });
+    }
+
+    // Select a random driver from the list of drivers with status null
+    const driver = drivers[Math.floor(Math.random() * drivers.length)];
+
+    // Add the driverId to the request body
+    req.body.driverId = driver.id;
+
+    // Call the notifyDriver function
+    await exports.notifyDriver(req, res);
+
+    // Update the order's delivery_id with the selected driver's id
+    const order = await Order.findByPk(req.body.order);
+    if (order) {
+      order.delivery_id = driver.id;
+      await order.save();
+    }
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(500).send({ message: 'Error selecting driver.' });
+  }
+};

@@ -71,3 +71,33 @@ exports.updateRestaurant = async (req, res) => {
         res.status(500).send({ message: err.message });
     }
 }
+exports.getRestaurant = async (req, res) => {
+  const { id, restaurant_name } = req.query;
+
+  try {
+    let restaurant;
+    if (id) {
+      restaurant = await Restaurant.findByPk(id);
+    } else if (restaurant_name) {
+      restaurant = await Restaurant.findOne({ where: { restaurant_name } });
+    }
+
+    if (!restaurant) {
+      return res.status(404).send({ message: 'Restaurant not found.' });
+    }
+
+    res.status(200).send(restaurant);
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(500).send({ message: 'Error retrieving restaurant.' });
+  }
+};
+exports.getAllRestaurants = async (req, res) => {
+  try {
+    const restaurants = await Restaurant.findAll();
+    res.status(200).send(restaurants);
+  } catch (error) {
+    console.log('Error:', error);
+    res.status(500).send({ message: 'Error retrieving restaurants.' });
+  }
+};

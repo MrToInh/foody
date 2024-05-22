@@ -51,6 +51,8 @@ require("./app/routes/user/notification.router")(app);
 
 require("./app/routes/driver/auth.routes")(app);
 require("./app/routes/driver/otp.routes")(app);
+require("./app/routes/driver/order.routes")(app);
+require("./app/routes/driver/notification.routes")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
@@ -85,6 +87,8 @@ function initial() {
     id: 3,
     status: "Delivered",
   });
+
+  
 
   // deliverydriver.create({
   //   id: 1,
