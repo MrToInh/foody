@@ -97,3 +97,16 @@ exports.deleteAddress = async (req, res) => {
         return res.status(500).send({ message: err.message || "Some error occurred while deleting the address." });
     }
 }
+
+exports.getAddressById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const address = await Address.findByPk(id);
+        if (!address) {
+            return res.status(404).send({ message: "Address not found." });
+        }
+        return res.send(address);
+    } catch (err) {
+        return res.status(500).send({ message: err.message || "Some error occurred while retrieving the address." });
+    }
+}
