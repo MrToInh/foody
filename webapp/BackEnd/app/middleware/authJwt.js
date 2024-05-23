@@ -102,6 +102,7 @@ isOwnerOrAdmin = async (req, res) => {
 
 const authJwt = {
   verifyToken,
+  verifyTokenDriver,
   isAdmin,
   isOwner,
   isOwnerOrAdmin,

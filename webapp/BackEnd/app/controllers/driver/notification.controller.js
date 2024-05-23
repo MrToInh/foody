@@ -8,7 +8,7 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS="my-applicationw2-7ab21-firebase-admi
 exports.acceptOrder = async (req, res) => {
     try {
         const { orderId } = req.body;
-        const driverId = req.userId;
+        const driverId = req.driverId;
         const order = await Order.findByPk(orderId,{
             include: [
               {
@@ -60,8 +60,8 @@ exports.acceptOrder = async (req, res) => {
 exports.rejectOrder = async (req, res) => {
     try {
         const { orderId } = req.body;
-        const driverId = req.userId;
-
+        const driverId = req.driverId;
+        
         const order = await Order.findByPk(orderId, {
             include: [
               {
@@ -74,7 +74,7 @@ exports.rejectOrder = async (req, res) => {
         if (!order) {
             return res.status(404).send({ message: 'Order not found.' });
         }
-
+        req.body.order = orderId;
         const driver = await Driver.findByPk(driverId);
         if (!driver) {
             return res.status(404).send({ message: 'Driver not found.' });
@@ -88,18 +88,23 @@ exports.rejectOrder = async (req, res) => {
             },
             token: order.user.fcm_token,
         };
-
-        // Remove delivery_id from the order
+        
+        driver.status = "busy";
+        await driver.save();
         order.delivery_id = null;
         await order.save();
+        // Remove delivery_id from the order
+        
 
         const response = await admin.messaging().send(payload);
         console.log('Successfully sent message:', response);
 
         // Notify another driver
-        await exports.notifyRandomDriver(req, res);
+        await notifyRandomDriver(req, res);
 
-        res.status(200).send({ message: 'Order rejected successfully.' });
+        if (!res.headersSent) {
+            res.status(200).send({ message: 'Order rejected successfully.' });
+        }
     } catch (error) {
         console.log('Error:', error);
         res.status(500).send({ message: 'Error rejecting order.' });
