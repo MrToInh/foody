@@ -1,7 +1,7 @@
 const db = require("../models");
 const ROLES = db.ROLES;
 const User = db.user;
-
+const Driver = db.drivers;
 checkDuplicateUsernameOrEmail = async (req, res, next) => {
   try {
     // Username
@@ -37,6 +37,41 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     });
   }
 };
+checkDuplicateUsernameOrEmailDriver = async (req, res, next) => {
+  try {
+    // Username
+    let driver = await Driver.findOne({
+      where: {
+        username: req.body.username
+      }
+    });
+
+    if (driver) {
+      return res.status(400).send({
+        message: "Failed! Username is already in use!"
+      });
+    }
+
+    // Email
+    driver = await Driver.findOne({
+      where: {
+        email: req.body.email
+      }
+    });
+
+    if (driver) {
+      return res.status(400).send({
+        message: "Failed! Email is already in use!"
+      });
+    }
+
+    next();
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message
+    });
+  }
+};
 
 checkRolesExisted = (req, res, next) => {
   if (req.body.roles) {
@@ -55,6 +90,7 @@ checkRolesExisted = (req, res, next) => {
 
 const verifySignUp = {
   checkDuplicateUsernameOrEmail,
+  checkDuplicateUsernameOrEmailDriver,
   checkRolesExisted
 };
 

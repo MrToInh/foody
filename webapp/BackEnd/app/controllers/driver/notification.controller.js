@@ -3,6 +3,7 @@ const Order =db.Order;
 const Driver = db.drivers;
 const User = db.user;
 const admin = require('firebase-admin');
+const { notifyRandomDriver } = require('../user/notification.controller');
 process.env.GOOGLE_APPLICATION_CREDENTIALS="my-applicationw2-7ab21-firebase-adminsdk-h8edm-f1cfbcc5c9.json" ;
 exports.acceptOrder = async (req, res) => {
     try {
@@ -27,6 +28,10 @@ exports.acceptOrder = async (req, res) => {
         // Update driver status to "busy"
         driver.status = "busy";
         await driver.save();
+
+        // Update order status to 3
+        order.order_status_id = 3;
+        await order.save();
 
         // Get the user
         const user = await User.findByPk(order.user_id);
@@ -90,6 +95,9 @@ exports.rejectOrder = async (req, res) => {
 
         const response = await admin.messaging().send(payload);
         console.log('Successfully sent message:', response);
+
+        // Notify another driver
+        await exports.notifyRandomDriver(req, res);
 
         res.status(200).send({ message: 'Order rejected successfully.' });
     } catch (error) {
