@@ -5,12 +5,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     menuItemId: {
       type: Sequelize.INTEGER,
-    },
-    quantity: {
-      type: Sequelize.INTEGER
-    },
-    price: {
-      type: Sequelize.DECIMAL
     }
   });
   return OrderDetails;

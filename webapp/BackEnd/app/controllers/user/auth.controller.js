@@ -129,7 +129,11 @@ exports.editProfile = async (req, res) => {
     user.fullname = fullname || user.fullname;
     user.username = username || user.username;
     user.email = email || user.email;
+<<<<<<< HEAD
     user.phone_number = phone_number || user.phone_number;
+=======
+    user.phone_number = phone || user.phone_number;
+>>>>>>> tinh
     await user.save();
 
     res.send({ message: "User updated successfully!" });
@@ -139,10 +143,13 @@ exports.editProfile = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> tinh
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }

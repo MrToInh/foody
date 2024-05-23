@@ -57,7 +57,12 @@ exports.notifyDriver = async (req, res) => {
 exports.notifyRandomDriver = async (req, res) => {
   try {
     const drivers = await Driver.findAll({ where: { status: null } });
+    const order = await Order.findByPk(req.body.order);
     if (!drivers.length) {
+      if (order) {
+        order.order_status_id = 1;
+        await order.save();
+      }
       return res.status(404).send({ message: 'No available driver to take the order.' });
     }
 
@@ -71,7 +76,6 @@ exports.notifyRandomDriver = async (req, res) => {
     await exports.notifyDriver(req, res);
 
     // Update the order's delivery_id with the selected driver's id
-    const order = await Order.findByPk(req.body.order);
     if (order) {
       order.delivery_id = driver.id;
       await order.save();
