@@ -74,7 +74,7 @@ const addToOrder = async (orderId, menuItemId, quantity) => {
   // Create the order detail
   const orderDetail = await OrderDetails.create({
     orderId: orderId,
-    menuItemId: menuItemId, // Assuming the MenuItem model has a price field
+    menuItemId: menuItemId,
   });
 
   return orderDetail;

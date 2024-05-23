@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
     fullname: {
       type: Sequelize.STRING
     },
-    phone_number:{
+    phone:{
       type: Sequelize.STRING
     },
     fcm_token: {
