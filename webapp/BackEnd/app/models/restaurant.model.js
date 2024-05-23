@@ -4,9 +4,6 @@ module.exports = (sequelize, Sequelize) => {
         restaurant_name: {
             type: Sequelize.STRING
         },
-        image:{
-            type: Sequelize.STRING
-        },
         user_id: {
             type: Sequelize.INTEGER
         },
