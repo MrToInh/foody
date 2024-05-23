@@ -10,7 +10,7 @@ module.exports = function(app) {
     );
     next();
   });
-  app.put("/api/auth/editProfile", controller.editProfile);
+  app.put("/api/auth/editProfile",verifyToken, controller.editProfile);
   app.post(
     "/api/auth/signup",
     [

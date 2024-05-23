@@ -29,7 +29,7 @@ exports.OrderInProcess = async (req, res) => {
       item: menuItem, // Use the item from the menu item
       order_status_id: pendingStatus.id,
       delivery_id: null,
-      price: price,
+      price: menuItem.price*quantity,
       order_date: new Date(),
       delivery_fee: null,
       request_delivery_date: null,
@@ -74,9 +74,7 @@ const addToOrder = async (orderId, menuItemId, quantity) => {
   // Create the order detail
   const orderDetail = await OrderDetails.create({
     orderId: orderId,
-    menuItemId: menuItemId,
-    quantity: quantity,
-    price: menuItem.price * quantity, // Assuming the MenuItem model has a price field
+    menuItemId: menuItemId, // Assuming the MenuItem model has a price field
   });
 
   return orderDetail;

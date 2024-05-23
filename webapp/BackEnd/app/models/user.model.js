@@ -14,10 +14,7 @@ module.exports = (sequelize, Sequelize) => {
     fullname: {
       type: Sequelize.STRING
     },
-    phone_number:{
-      type: Sequelize.STRING
-    },
-    remember_token: {
+    phone:{
       type: Sequelize.STRING
     },
     fcm_token: {

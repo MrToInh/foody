@@ -92,28 +92,29 @@ exports.signout = async (req, res) => {
 
 exports.editProfile = async (req, res) => {
   try {
-    
-        const userId = decoded.id;
-        const user = await User.findByPk(userId);
-        if (!user) {
-          return res.status(404).send({
-            message: "User not found."
-          });
-        }
 
-        await user.update({
-          password: bcrypt.hashSync(req.body.password, 8),
-          phone_number: req.body.phone_number
-        });
+  // Tìm driver dựa trên id từ req.userId
+  const userId = req.userId;
+  const user = await User.findByPk(userId);
 
-        return res.send({ message: "Profile updated successfully!" });
-      }
-     catch (err) {
-    return res.status(500).send({
-      message: err.message || "Some error occurred while updating the profile."
-    });
+  if (!user) {
+    return res.status(404).send({ message: "User Not found." });
+  }
+  const { username, email, phone, fullname } = req.body;
+
+    user.fullname = fullname || user.fullname;
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.phone_number = phone || user.phone_number;
+    await user.save();
+
+    res.send({ message: "User updated successfully!" });
+  } catch (error) {
+    console.error("Error updating user", error);
+    res.status(500).send({ message: error.message });
   }
 };
+
 function generateOTP() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }

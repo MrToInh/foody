@@ -8,7 +8,7 @@ const Order = db.Order;
 
 exports.getOrdersByDriver = async (req, res) => {
   // Get driver id from req.userId
-  const driverId = req.userId;
+  const driverId = req.driverId;
 
   // Find the driver
   const driver = await Driver.findByPk(driverId);
