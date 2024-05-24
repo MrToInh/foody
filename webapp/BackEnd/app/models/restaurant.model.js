@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
         restaurant_kind: {
             type: Sequelize.STRING
         },
+        image: {
+            type: Sequelize.STRING
+        },
     });
     return Restaurant;  
 };
