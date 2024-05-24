@@ -183,3 +183,22 @@ exports.getItemById = async (req, res) => {
         });
     }
 }
+
+const { Op } = require("sequelize");// Get menu items by name
+exports.getbyName = async (req, res) => {
+    try {
+        const searchKeyword = req.params.searchKeyword;
+        const menuItems = await MenuItem.findAll({
+            where: {
+                item_name: {
+                    [Op.like]: `%${searchKeyword}%`
+                }
+            }
+        });
+        return res.send(menuItems);
+    } catch (err) {
+        return res.status(500).send({
+            message: err.message || "Some error occurred while retrieving the menu items by search keyword."
+        });
+    }
+}

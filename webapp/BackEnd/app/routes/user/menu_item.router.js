@@ -9,5 +9,6 @@ module.exports = app => {
     router.get('/getall', menu_item_controller.getAllItems);
     router.get('/getbyrestaurant/:restaurantId', menu_item_controller.getItemsByRestaurant);
     router.get('/getbyid/:itemId', menu_item_controller.getItemById);
+    router.get('/getItembyName/:searchKeyword', menu_item_controller.getbyName);
     app.use('/api/menu_items', router);
 }
