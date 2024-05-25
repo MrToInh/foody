@@ -191,7 +191,7 @@ exports.verifyOTP = async (req, res) => {
     // Clear user info from cache
     userCache.deleteUserInfo(email);
 
-    res.send({ message: 'Password updated successfully!' });
+    res.status(200).send({ message: 'Password updated successfully!' });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
