@@ -1,0 +1,6 @@
+<!-- res/drawable/background_message_sent.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#444444" /> <!-- Set background color for sent messages -->
+    <corners android:radius="20dp" /> <!-- Adjust corner radius as needed -->
+</shape>

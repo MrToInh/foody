@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/shipperHome"
+        android:icon="@drawable/ic_home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/pendingOrder"
+        android:icon="@drawable/ic_pending"
+        android:title="Pending Order"/>
+    <item
+        android:id="@+id/chat"
+        android:icon="@drawable/ic_order_24"
+        android:title="Chat"/>
+
+    <item
+        android:id="@+id/shipperProfile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"/>
+</menu>
