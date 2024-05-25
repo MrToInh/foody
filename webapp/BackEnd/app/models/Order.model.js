@@ -24,6 +24,9 @@ module.exports=(sequelize,Sequelize) => {
         price:{
             type:Sequelize.DECIMAL
         },
+        phone:{
+            type:Sequelize.INTEGER
+        },
         order_date:{
             type:Sequelize.DATE
         },

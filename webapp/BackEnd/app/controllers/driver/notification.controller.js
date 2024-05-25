@@ -4,7 +4,7 @@ const Driver = db.drivers;
 const User = db.user;
 const admin = require('firebase-admin');
 const { notifyRandomDriver } = require('../user/notification.controller');
-process.env.GOOGLE_APPLICATION_CREDENTIALS="my-applicationw2-7ab21-firebase-adminsdk-h8edm-f1cfbcc5c9.json" ;
+process.env.GOOGLE_APPLICATION_CREDENTIALS="food-android-c5fb7-firebase-adminsdk-48heu-a75b224a17.json" ;
 exports.acceptOrder = async (req, res) => {
     try {
         const { orderId } = req.body;

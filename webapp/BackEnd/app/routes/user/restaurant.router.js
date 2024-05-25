@@ -5,6 +5,6 @@ module.exports=app=>{
     const router=require('express').Router();
     router.post('/',verifyToken,restaurant_controller.addrestaurant);
     router.get('/',restaurant_controller.getRestaurant);
-    router.get('/',restaurant_controller.getAllRestaurants);
+    router.get('/getall',restaurant_controller.getAllRestaurants);
     app.use('/api/restaurants',router);
 }

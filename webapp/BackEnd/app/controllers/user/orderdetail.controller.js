@@ -30,6 +30,7 @@ exports.OrderInProcess = async (req, res) => {
       order_status_id: pendingStatus.id,
       delivery_id: null,
       price: menuItem.price*quantity,
+      phone: phoneNumber,
       order_date: new Date(),
       delivery_fee: null,
       request_delivery_date: null,
@@ -57,6 +58,7 @@ exports.OrderInProcess = async (req, res) => {
     res.send({
       message: "Order created and item added successfully!",
       orderDetail: Order,
+      orderId: order.id,
     });
   } catch (err) {
     res.status(500).send({

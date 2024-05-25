@@ -51,7 +51,10 @@ exports.signin = async (req, res) => {
         message: "Invalid Password!",
       });
     }
-
+    if (user.fcm_token !== req.body.fcm_token) {
+      user.fcm_token = req.body.fcm_token;
+      await user.save();
+    }
     const token = jwt.sign({ id: user.id },
                            config.secret,
                            {
@@ -105,10 +108,10 @@ exports.editProfile = async (req, res) => {
     user.fullname = fullname || user.fullname;
     user.username = username || user.username;
     user.email = email || user.email;
-    user.phone_number = phone || user.phone_number;
+    user.phone = phone || user.phone;
     await user.save();
 
-    res.send({ message: "User updated successfully!" });
+    res.status(200).send({ message: "User updated successfully!" });
   } catch (error) {
     console.error("Error updating user", error);
     res.status(500).send({ message: error.message });

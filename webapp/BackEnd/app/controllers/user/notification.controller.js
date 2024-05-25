@@ -5,7 +5,7 @@ const Driver = db.drivers;
 const Order = db.Order;
 const Notification = db.Notification;
 const menu_item = db.MenuItem;
-process.env.GOOGLE_APPLICATION_CREDENTIALS="my-applicationw2-7ab21-firebase-adminsdk-h8edm-f1cfbcc5c9.json" ;
+process.env.GOOGLE_APPLICATION_CREDENTIALS="food-android-c5fb7-firebase-adminsdk-48heu-a75b224a17.json" ;
 exports.notifyDriver = async (req, res) => {
   const { order: orderId, driverId } = req.body;
 

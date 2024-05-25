@@ -44,13 +44,16 @@ exports.signin = async (req, res) => {
       req.body.password,
       driver.password
     );
-
+    
     if (!passwordIsValid) {
       return res.status(401).send({
         message: "Invalid Password!",
       });
     }
-
+    if (driver.fcm_token !== req.body.fcm_token) {
+      driver.fcm_token = req.body.fcm_token;
+      await driver.save();
+    }
     const token = jwt.sign({ id: driver.id },
                            config.secret,
                            {
@@ -155,7 +158,7 @@ exports.updateDriverAndProfile = async (req, res) => {
 };
 exports.getDriverInfo = async (req, res) => {
   try {
-    const driverId = req.userId;
+    const driverId = req.driverId;
     const driver = await drivers.findByPk(driverId);
 
     if (!driver) {
