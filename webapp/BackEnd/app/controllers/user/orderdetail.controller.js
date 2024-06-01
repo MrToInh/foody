@@ -20,6 +20,7 @@ exports.OrderInProcess = async (req, res) => {
     if (!pendingStatus) {
       throw new Error('Pending status not found');
     }
+    
     // Create the order
     const order = await Order.create({
       user_id: req.userId,

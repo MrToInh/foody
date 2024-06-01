@@ -4,7 +4,7 @@ const db = require("../models");
 const User = db.user;
 const Driver = db.drivers;
 
-verifyToken = (req, res, next) => {
+const createVerifyToken = (handleDecodedId) => (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
@@ -14,90 +14,46 @@ verifyToken = (req, res, next) => {
     });
   }
 
-  jwt.verify(token,
-             config.secret,
-             (err, decoded) => {
-              if (err) {
-                return res.status(401).send({
-                  message: "Unauthorized!",
-                });
-              }
-              req.userId = decoded.id;
-              next();
-             });
-};
-verifyTokenDriver = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-
-  if (!token) {
-    return res.status(403).send({
-      message: "No token provided!",
-    });
-  }
-
-  jwt.verify(token,
-             config.secret,
-             (err, decoded) => {
-              if (err) {
-                return res.status(401).send({
-                  message: "Unauthorized!",
-                });
-              }
-              req.driverId = decoded.id;
-              next();
-             });
+  jwt.verify(token, config.secret, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({
+        message: "Unauthorized!",
+      });
+    }
+    handleDecodedId(req, decoded.id);
+    next();
+  });
 };
 
-isAdmin = async (req, res) => {
+const verifyToken = createVerifyToken((req, id) => {
+  req.userId = id;
+});
+
+const verifyTokenDriver = createVerifyToken((req, id) => {
+  req.driverId = id;
+});
+
+const createRoleChecker = (rolesToCheck) => async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.userId);
-    const roles = await user.getRoles();
+    const user = await User.findById(req.userId);
+    const roles = await roles.find({ _id: { $in: user.roles } });
 
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "admin") {
-        return true;
+      if (rolesToCheck.includes(roles[i].name)) {
+        next();
+        return;
       }
     }
 
-    return false;
+    res.status(403).send({ message: "Require Owner or Admin Role!" });
   } catch (error) {
-    throw new Error("Unable to validate User role!");
+    throw new Error("Unable to validate role!");
   }
 };
 
-isOwner = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.userId);
-    const roles = await user.getRoles();
-
-    for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "owner") {
-        return true;
-      }
-    }
-    return false;
-  } catch (error) {
-    throw new Error("Unable to validate owner role!");
-  }
-};
-
-isOwnerOrAdmin = async (req, res) => {
-  try {
-    const user = await User.findByPk(req.userId);
-    const roles = await user.getRoles();
-
-    for (let i = 0; i < roles.length; i++) {
-      if (roles[i].name === "owner" || roles[i].name === "admin") {
-        return true;
-      }
-    }
-
-    return false;
-  } catch (error) {
-    throw new Error("Unable to validate owner or Admin role!");
-  }
-};
+const isAdmin = createRoleChecker(["admin"]);
+const isOwner = createRoleChecker(["owner"]);
+const isOwnerOrAdmin = createRoleChecker(["owner", "admin"]);
 
 
 const authJwt = {

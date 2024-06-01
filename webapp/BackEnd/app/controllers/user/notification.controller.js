@@ -56,25 +56,36 @@ exports.notifyDriver = async (req, res) => {
 };
 exports.notifyRandomDriver = async (req, res) => {
   try {
-    const drivers = await Driver.findAll({ where: { status: null } });
-    const order = await Order.findByPk(req.body.order);
+    const order = await db.Order.findByPk(req.body.order);
+    let drivers = await db.drivers.findAll({ where: { status: null } });
+
+    // Get all blacklist entries for the current order
+    const blacklistEntries = await db.Blacklist.findAll({ where: { orderId: order.id } });
+    const blacklistedDriverIds = blacklistEntries.map(entry => entry.driverId);
+
+    // Filter out the drivers that are in the blacklist
+    drivers = drivers.filter(driver => !blacklistedDriverIds.includes(driver.id));
+
     if (!drivers.length) {
       if (order) {
         order.order_status_id = 1;
+        order.delivery_id = null;
         await order.save();
       }
       return res.status(404).send({ message: 'No available driver to take the order.' });
     }
 
     // Select a random driver from the list of drivers with status null
-    const driver = drivers[Math.floor(Math.random() * drivers.length)];
+    const randomIndex = Math.floor(Math.random() * drivers.length);
+    const driver = drivers[randomIndex];
 
     // Add the driverId to the request body
     req.body.driverId = driver.id;
 
     // Call the notifyDriver function
-    await exports.notifyDriver(req, res);
-
+    if (order && order.order_status_id === 2) {
+      await exports.notifyDriver(req, res);
+    }
     // Update the order's delivery_id with the selected driver's id
     if (order) {
       order.delivery_id = driver.id;

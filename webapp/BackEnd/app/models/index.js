@@ -30,6 +30,7 @@ db.Orderdetails = require("../models/orderdetail.model.js")(sequelize, Sequelize
 db.UserAddress = require("../models/useraddress.model.js")(sequelize, Sequelize);
 db.DriverProfile = require("./driverprofile.model.js")(sequelize, Sequelize);
 db.Notification = require("./notification.model.js")(sequelize, Sequelize);
+db.Blacklist = require("./blacklistorder.model.js")(sequelize, Sequelize);
 //user/role
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -143,6 +144,10 @@ db.DriverProfile.belongsTo(db.drivers, {
   foreignKey: 'driverId',
   as: 'driver',
 });
+db.Order.hasMany(db.Blacklist, { foreignKey: 'orderId' });
+db.Blacklist.belongsTo(db.Order, { foreignKey: 'orderId' });
+db.drivers.hasMany(db.Blacklist, { foreignKey: 'driverId' });
+db.Blacklist.belongsTo(db.drivers, { foreignKey: 'driverId' });
 db.user.hasMany(db.Otp, { foreignKey: "userId" }); // Mỗi User có nhiều Otp
 db.Otp.belongsTo(db.user, { foreignKey: "userId" });
 db.user.hasMany(db.Notification, { as: 'userId' });

@@ -62,10 +62,10 @@ exports.rejectOrder = async (req, res) => {
         const { orderId } = req.body;
         const driverId = req.driverId;
         
-        const order = await Order.findByPk(orderId, {
+        const order = await db.Order.findByPk(orderId, {
             include: [
               {
-                model: User,
+                model: db.user,
                 as: 'user',
                 attributes: ['fcm_token'],
               }
@@ -75,7 +75,7 @@ exports.rejectOrder = async (req, res) => {
             return res.status(404).send({ message: 'Order not found.' });
         }
         req.body.order = orderId;
-        const driver = await Driver.findByPk(driverId);
+        const driver = await db.drivers.findByPk(driverId);
         if (!driver) {
             return res.status(404).send({ message: 'Driver not found.' });
         }
@@ -89,12 +89,8 @@ exports.rejectOrder = async (req, res) => {
             token: order.user.fcm_token,
         };
         
-        driver.status = "busy";
-        await driver.save();
-        order.delivery_id = null;
-        await order.save();
-        // Remove delivery_id from the order
-        
+        // Add the driver to the order's blacklist
+        await db.Blacklist.create({ orderId: order.id, driverId: driverId });
 
         const response = await admin.messaging().send(payload);
         console.log('Successfully sent message:', response);

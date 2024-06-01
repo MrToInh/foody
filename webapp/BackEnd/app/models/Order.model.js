@@ -21,6 +21,10 @@ module.exports=(sequelize,Sequelize) => {
         delivery_id:{
             type:Sequelize.INTEGER
         },
+        blacklist: {
+            type: Sequelize.STRING,
+            defaultValue: '',
+          },
         price:{
             type:Sequelize.DECIMAL
         },

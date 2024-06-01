@@ -40,7 +40,6 @@ const Orderstatus = db.Orderstatus;
 
 db.sequelize.sync();
 require("./app/routes/user/auth.routes")(app);
-require("./app/routes/user/user.routes")(app);
 require("./app/routes/user/menu_item.router")(app);
 require("./app/routes/user/restaurant.router")(app);
 require("./app/routes/user/address.router")(app);
